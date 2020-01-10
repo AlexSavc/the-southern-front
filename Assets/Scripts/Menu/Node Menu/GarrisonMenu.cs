@@ -17,15 +17,13 @@ public class GarrisonMenu : MonoBehaviour
     public List<Commander> selectedCommanders;
     public GameObject garrisonSlotObj;
     public GameObject panel;
-
-    //public List<DraggableImage> transfer;
+    
     public List<Unit> unitTransfer;
 
     public GameObject slotHolder;
     
     void Start()
     {
-        //transfer = new List<DraggableImage>();
         slotHolder = new GameObject();
         slotHolder.SetActive(false);
     }
@@ -76,18 +74,11 @@ public class GarrisonMenu : MonoBehaviour
 
     }
 
-
-    public void ClearAllSlots()
-    {
-
-    }
-
     public void AddUnitSlotToTransfer(UnitSlot slot, out bool alreadyInTransfer)
     {
         if (!unitTransfer.Contains(slot.unit))
         {
             unitTransfer.Add(slot.unit);
-            Debug.Log("Added to transfer");
             alreadyInTransfer = false;
         }
         else { Debug.Log("Already in transfer"); alreadyInTransfer = true; }
@@ -110,9 +101,9 @@ public class GarrisonMenu : MonoBehaviour
 
     public void ConfirmTransfer()
     {
-        foreach(Unit unit in unitTransfer)
+        foreach (GarrisonSlot garSlot in GetGarrisonSlots())
         {
-
+            garSlot.OnConfirmTransfer();
         }
         unitTransfer.Clear();
         UpdateAllGarrisonSlots();
@@ -120,55 +111,43 @@ public class GarrisonMenu : MonoBehaviour
 
     public void CancelTransfer()
     {
-        foreach (Unit unit in unitTransfer)
+        foreach (GarrisonSlot garSlot in GetGarrisonSlots())
         {
-
+            garSlot.OnCancelTransfer();
         }
         unitTransfer.Clear();
         UpdateAllGarrisonSlots();
     }
 
-    void UpdateAllGarrisonSlots()
+    public void UpdateAllGarrisonSlots()
     {
-        GarrisonSlot[] slots = panel.GetComponentsInChildren<GarrisonSlot>();
-
-        foreach(GarrisonSlot garSlot in slots)
+        foreach(GarrisonSlot garSlot in GetGarrisonSlots())
         {
             garSlot.SetTroopsList();
         }
     }
 
-    public bool IsInTransfer(Unit unit)
+    public bool IsInTransfer(Unit unit, Commander currentCommander)
     {
         foreach (Unit u in unitTransfer)
         {
-            if (unit == u) return true;
+            if (unit == u)
+            {
+                if (unit.Commander == currentCommander)
+                {
+                    RemoveFromTransfer(unit);
+                    return false;
+                }
+                else return true;
+            }
         }
 
         return false;
     }
 
-    public void RefreshTransfers()
+    private void RemoveFromTransfer(Unit unit)
     {
-        GarrisonSlot[] garSlots = panel.GetComponentsInChildren<GarrisonSlot>();
-        foreach(GarrisonSlot garSlot in garSlots)
-        {
-            List<UnitSlot> unitSlots = GetUnitSlots(garSlot);
-            foreach (UnitSlot unitSlot in unitSlots)
-            {
-                if(unitSlot.unit.Commander == unitSlot.currentCommander)
-                {
-                    unitTransfer.Remove(unitSlot.unit);
-                }
-                /*if (unitSlot.unit.commander == garSlot.commander)
-                {
-                    if(IsInTransfer(unitSlot.unit))
-                    {
-                        unitTransfer.Remove(unitSlot.unit);
-                    }
-                }*/
-            }
-        }
+        unitTransfer.Remove(unit);
     }
 
     private void HideCanvas(bool hide)
@@ -197,5 +176,11 @@ public class GarrisonMenu : MonoBehaviour
         }
 
         return unitSlots;
+    }
+
+    private GarrisonSlot[] GetGarrisonSlots()
+    {
+        GarrisonSlot[] slots = panel.GetComponentsInChildren<GarrisonSlot>();
+        return slots;
     }
 }

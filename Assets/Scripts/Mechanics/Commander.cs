@@ -40,6 +40,8 @@ public class Commander : MonoBehaviour, IGarrison
 
     public void AddUnit(Unit unit)
     {
+        if (units.Contains(unit)) return;
+
         units.Add(unit);
     }
 

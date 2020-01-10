@@ -12,7 +12,8 @@ public class UnitSlot : MonoBehaviour
     public TextMeshProUGUI secondLine;
     public Unit unit;
     public DraggableImage draggableImage;
-    public Commander currentCommander;
+    private Commander currentCommander;
+    public Commander CurrentCommander { get { return currentCommander; } }
 
     public void SetData(Unit unit)
     {
@@ -22,6 +23,13 @@ public class UnitSlot : MonoBehaviour
         slider.value = unit.Health;
         secondLine.text = "Strength: "+unit.strength;
         this.unit = unit;
+    }
+
+    public void MoveToCommander(Commander commander)
+    {
+        if(currentCommander != null) { currentCommander.RemoveUnit(unit); }
+        currentCommander = commander;
+        currentCommander.AddUnit(unit);
     }
 
     public void DestroySelf()

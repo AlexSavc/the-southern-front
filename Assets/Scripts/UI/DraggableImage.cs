@@ -56,17 +56,17 @@ public class DraggableImage : MonoBehaviour, IDragHandler, IBeginDragHandler, IE
             GarrisonSlot garSlot = result.gameObject.GetComponent<GarrisonSlot>();
             if (garSlot != null)
             {
-                garSlot.OnAddUnitSlot(slot);
+                AddToNewSlot(garSlot);
                 slot.DestroySelf();
                 return;
             }
         }
     
+        //This is for when you drop it outside
         ReturnToParent();
         UnSetMovedColor();
         GarrisonSlot gSlot = (GarrisonSlot)Utility.GetFirstComponentInParents(gameObject, typeof(GarrisonSlot));
         gSlot.SetTroopsList();
-        Debug.Log("SetTroopsList");
     }
 
     public void RemoveFromParent()
@@ -88,6 +88,7 @@ public class DraggableImage : MonoBehaviour, IDragHandler, IBeginDragHandler, IE
     
     public void AddToNewSlot(GarrisonSlot garSlot)
     {
+        slot.unit.Commander.RemoveUnit(slot.unit);
         garSlot.OnAddUnitSlot(slot);
         SetMovedColor();
     }
