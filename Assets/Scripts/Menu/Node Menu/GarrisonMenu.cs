@@ -18,14 +18,14 @@ public class GarrisonMenu : MonoBehaviour
     public GameObject garrisonSlotObj;
     public GameObject panel;
 
-    public List<DraggableImage> transfer;
+    //public List<DraggableImage> transfer;
     public List<Unit> unitTransfer;
 
     public GameObject slotHolder;
     
     void Start()
     {
-        transfer = new List<DraggableImage>();
+        //transfer = new List<DraggableImage>();
         slotHolder = new GameObject();
         slotHolder.SetActive(false);
     }
@@ -82,27 +82,15 @@ public class GarrisonMenu : MonoBehaviour
 
     }
 
-    public void AddUnitSlotToTransfer(UnitSlot slot)
+    public void AddUnitSlotToTransfer(UnitSlot slot, out bool alreadyInTransfer)
     {
-        if (!transfer.Contains(slot.draggableImage))
+        if (!unitTransfer.Contains(slot.unit))
         {
-            transfer.Add(slot.draggableImage);
-            slot.gameObject.transform.SetParent(slotHolder.transform);
-
-            Debug.Log("Added to treansfer");
+            unitTransfer.Add(slot.unit);
+            Debug.Log("Added to transfer");
+            alreadyInTransfer = false;
         }
-    }
-
-    public void RemoveUnitSlotFromTransfer(UnitSlot slot)
-    {
-        if (transfer.Contains(slot.draggableImage))
-        {
-            transfer.Remove(slot.draggableImage);
-            if(Utility.GetChildren(slotHolder.transform).Contains(slot.gameObject))
-            {
-                slot.DestroySelf();
-            }
-        }
+        else { Debug.Log("Already in transfer"); alreadyInTransfer = true; }
     }
 
     public void OnPressTransfer()
@@ -122,21 +110,21 @@ public class GarrisonMenu : MonoBehaviour
 
     public void ConfirmTransfer()
     {
-        foreach(DraggableImage image in transfer)
+        foreach(Unit unit in unitTransfer)
         {
-            image.OnConfirmTransfer();
+
         }
-        transfer.Clear();
+        unitTransfer.Clear();
         UpdateAllGarrisonSlots();
     }
 
     public void CancelTransfer()
     {
-        foreach (DraggableImage image in transfer)
+        foreach (Unit unit in unitTransfer)
         {
-            image.OnCancelTransfer();
+
         }
-        transfer.Clear();
+        unitTransfer.Clear();
         UpdateAllGarrisonSlots();
     }
 
@@ -152,29 +140,34 @@ public class GarrisonMenu : MonoBehaviour
 
     public bool IsInTransfer(Unit unit)
     {
-        //RefreshTransfers();
-        foreach (DraggableImage image in transfer)
+        foreach (Unit u in unitTransfer)
         {
-            if (unit == image.slot.unit) return true;
+            if (unit == u) return true;
         }
 
         return false;
     }
 
-    private void RefreshTransfers()
+    public void RefreshTransfers()
     {
-        List<DraggableImage> toRemove = new List<DraggableImage>();
-        foreach (DraggableImage image in transfer)
+        GarrisonSlot[] garSlots = panel.GetComponentsInChildren<GarrisonSlot>();
+        foreach(GarrisonSlot garSlot in garSlots)
         {
-            if (image.slot.unit.commander == image.initialCommander)
+            List<UnitSlot> unitSlots = GetUnitSlots(garSlot);
+            foreach (UnitSlot unitSlot in unitSlots)
             {
-                toRemove.Add(image);
+                if(unitSlot.unit.Commander == unitSlot.currentCommander)
+                {
+                    unitTransfer.Remove(unitSlot.unit);
+                }
+                /*if (unitSlot.unit.commander == garSlot.commander)
+                {
+                    if(IsInTransfer(unitSlot.unit))
+                    {
+                        unitTransfer.Remove(unitSlot.unit);
+                    }
+                }*/
             }
-        }
-
-        foreach (DraggableImage image in toRemove)
-        {
-            transfer.Remove(image);
         }
     }
 
@@ -189,5 +182,20 @@ public class GarrisonMenu : MonoBehaviour
     {
         CancelTransfer();
         selectedCommanders.Clear();
+    }
+
+    public List<UnitSlot> GetUnitSlots(GarrisonSlot garSlot)
+    {
+        List<UnitSlot> unitSlots = new List<UnitSlot>();
+        List<GameObject> objs = Utility.GetChildren(garSlot.content.transform);
+        foreach(GameObject obj in objs)
+        {
+            if(obj.GetComponent<UnitSlot>())
+            {
+                unitSlots.Add(obj.GetComponent<UnitSlot>());
+            }
+        }
+
+        return unitSlots;
     }
 }

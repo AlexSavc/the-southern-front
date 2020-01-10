@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class DraggableImage : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
     private Transform initialParent;
-    public Commander initialCommander;
     public GraphicRaycaster caster;
     [SerializeField]
     private ScrollRect scrollRect;
@@ -40,7 +39,6 @@ public class DraggableImage : MonoBehaviour, IDragHandler, IBeginDragHandler, IE
     {
         SetInitialReferences();
         RemoveFromParent();
-        RemoveFromCommander();
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -59,26 +57,16 @@ public class DraggableImage : MonoBehaviour, IDragHandler, IBeginDragHandler, IE
             if (garSlot != null)
             {
                 garSlot.OnAddUnitSlot(slot);
+                slot.DestroySelf();
                 return;
             }
         }
-
+    
         ReturnToParent();
-        ReturnToCommander();
         UnSetMovedColor();
         GarrisonSlot gSlot = (GarrisonSlot)Utility.GetFirstComponentInParents(gameObject, typeof(GarrisonSlot));
         gSlot.SetTroopsList();
-    }
-
-    public void OnCancelTransfer()
-    {
-        ReturnToCommander();
-        UnSetMovedColor();
-    }
-
-    public void OnConfirmTransfer()
-    {
-        initialCommander = slot.unit.commander;
+        Debug.Log("SetTroopsList");
     }
 
     public void RemoveFromParent()
@@ -91,28 +79,14 @@ public class DraggableImage : MonoBehaviour, IDragHandler, IBeginDragHandler, IE
     public void SetInitialReferences()
     {
         initialParent = slot.transform.parent;
-        initialCommander = slot.unit.commander;
-    }
-
-    public void RemoveFromCommander()
-    {
-        slot.unit.commander.RemoveUnit(slot.unit);
     }
 
     public void ReturnToParent()
     {
         slot.transform.SetParent(initialParent, false);
     }
-
-    public void ReturnToCommander()
-    {
-        slot.unit.commander.RemoveUnit(slot.unit);
-        initialCommander.AddUnit(slot.unit);
-        slot.unit.commander = initialCommander;
-    }
-
-
-    public void MoveToNewSlot(GarrisonSlot garSlot)
+    
+    public void AddToNewSlot(GarrisonSlot garSlot)
     {
         garSlot.OnAddUnitSlot(slot);
         SetMovedColor();
@@ -121,7 +95,6 @@ public class DraggableImage : MonoBehaviour, IDragHandler, IBeginDragHandler, IE
     void MoveWithDrag(Vector3 pos)
     {
         slot.transform.position = pos;
-        slot.unit.commander = initialCommander;
     }
     
     public void SetMovedColor()

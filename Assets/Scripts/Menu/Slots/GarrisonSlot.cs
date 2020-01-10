@@ -31,14 +31,15 @@ public class GarrisonSlot : MonoBehaviour
         if (commander.Units == null) return;
         units = commander.Units;
 
-        foreach(Unit unit in units)
+        
+        foreach (Unit unit in units)
         {
             GameObject slot = Instantiate(unitSlot, content.transform);
             UnitSlot uSlot = slot.GetComponent<UnitSlot>();
             uSlot.SetData(unit);
             if(GarrisonMenu.Instance.IsInTransfer(unit)) { uSlot.draggableImage.SetMovedColor(); }
         }
-
+        GarrisonMenu.Instance.RefreshTransfers();
         recruitButton.transform.SetAsLastSibling();
     }
 
@@ -58,10 +59,18 @@ public class GarrisonSlot : MonoBehaviour
 
     public void OnAddUnitSlot(UnitSlot slot)
     {
-        AddToCommander(slot);
-
+        bool alreadyInTransfer;
         GarrisonMenu menu = (GarrisonMenu)Utility.GetFirstComponentInParents(gameObject, typeof(GarrisonMenu));
-        menu.AddUnitSlotToTransfer(slot);
+
+        //If you move from original commander to original commander, do nothing
+        if(slot.unit.Commander != commander)
+        {
+            //If you transfer it to a different one than the ORIGINAL commander, check if it was already transferred
+            menu.AddUnitSlotToTransfer(slot, out alreadyInTransfer);
+            //If so, there's no need to add it again
+            if(!alreadyInTransfer) AddToCommander(slot);
+            else { slot.unit.Commander.RemoveUnit(slot.unit); }
+        }
 
         SetTroopsList();
     }
@@ -69,13 +78,13 @@ public class GarrisonSlot : MonoBehaviour
     private void AddToCommander(UnitSlot slot)
     {
         commander.AddUnit(slot.unit);
-        slot.unit.commander = commander;
+        //slot.unit.commander = commander;
     }
 
     public void OnRecruit()
     {
         Unit added = Instantiate(WarEconomy.Instance.militia);
-        added.commander = commander;
+        added.SetCommander(commander);
         commander.AddUnit(added);
         SetTroopsList();
     }

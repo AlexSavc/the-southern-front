@@ -12,6 +12,7 @@ public class UnitSlot : MonoBehaviour
     public TextMeshProUGUI secondLine;
     public Unit unit;
     public DraggableImage draggableImage;
+    public Commander currentCommander;
 
     public void SetData(Unit unit)
     {

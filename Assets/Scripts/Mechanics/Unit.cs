@@ -6,7 +6,9 @@ public class Unit : MonoBehaviour
 {
     public string unitName;
     public Sprite sprite;
-    public Commander commander;
+    [SerializeField]
+    private Commander commander;
+    public Commander Commander { get { return commander; } }
 
     public SpriteRenderer rend;
 
@@ -38,6 +40,11 @@ public class Unit : MonoBehaviour
     public void SetData(UnitInfo info)
     {
 
+    }
+
+    public void SetCommander(Commander setCommander)
+    {
+        commander = setCommander;
     }
 }
 
