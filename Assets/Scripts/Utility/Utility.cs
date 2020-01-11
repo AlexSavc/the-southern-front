@@ -25,6 +25,16 @@ public static class Utility
         return objs;
     }
 
+    public static void ClearChildren(GameObject target)
+    {
+        GameObject[] children = GetChildren(target.transform).ToArray();
+
+        foreach (GameObject child in children)
+        {
+            Object.Destroy(child);
+        }
+    }
+
     public static List<GameObject> GetActiveSiblings(GameObject Obj)
     {
         List<GameObject> temp = new List<GameObject>();

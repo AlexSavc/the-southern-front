@@ -46,6 +46,7 @@ public class Node : MonoBehaviour, ISelectable, IInteractable, IGarrison
     [Header("Garrison")]
     [SerializeField]
     private List<Commander> garrisonedCommanders;
+    public List<Commander> GarrisonedCommanders { get { return garrisonedCommanders; } set { } }
     [SerializeField]
     private Commander lordProtector;
 

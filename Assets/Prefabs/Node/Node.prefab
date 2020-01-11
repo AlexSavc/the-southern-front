@@ -437,6 +437,8 @@ MonoBehaviour:
   eastRoad: {fileID: 0}
   southRoad: {fileID: 0}
   westRoad: {fileID: 0}
+  garrisonedCommanders: []
+  lordProtector: {fileID: 0}
 --- !u!58 &1625106970182810949
 CircleCollider2D:
   m_ObjectHideFlags: 0
