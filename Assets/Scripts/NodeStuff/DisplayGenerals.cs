@@ -17,30 +17,60 @@ public class DisplayGenerals : MonoBehaviour
     private Vector2 offset;
     private List<Commander> commanders;
 
+    [SerializeField]
+    private bool isVisible;
+    
+
     public void Start()
     {
         targetNode = GetComponent<Node>();
+        targetNode.onNodeSelection += SetDisplay;
     }
 
-    private void SetDefaultDisplay()
+    private void SetDisplay(bool nodeIsSelected)
     {
-        Utility.ClearChildren(DefaultHolder);
-        foreach(Commander commander in commanders)
+        if (!isVisible) return;
+        GetCommanders();
+        ClearDisplays();
+        Transform display = GetHolder(nodeIsSelected);
+
+        foreach (Commander commander in commanders)
         {
-            GameObject obj = Instantiate(DisplayPrefab.gameObject, DefaultHolder.transform);
-            obj.GetComponent<CommanderDisplay>().Rend.sprite = commander.sprite;
+            GameObject obj = Instantiate(DisplayPrefab.gameObject, display);
+            SetCommanderDisplay(commander, obj, nodeIsSelected);
         }
     }
 
-    private void SetSelectedDisplay()
+    public void SetVisible(bool visible)
     {
-        
+        isVisible = visible;
+        if (isVisible) SetDisplay(false);
+        else ClearDisplays();
+    }
+
+    private void ClearDisplays()
+    {
+        Utility.ClearChildren(DefaultHolder);
+        Utility.ClearChildren(SelectedHolder);
+    }
+
+    private Transform GetHolder(bool isSelected)
+    {
+        if (isSelected) return SelectedHolder.transform; else return DefaultHolder.transform;
+    }
+
+    private void SetCommanderDisplay(Commander commander, GameObject obj, bool isSelected)
+    {
+        CommanderDisplay disp = obj.GetComponent<CommanderDisplay>();
+        disp.ProfileRend.sprite = commander.sprite;
+        disp.SetSpriteRendOrder(isSelected);
     }
 
     private void GetCommanders()
     {
         //The Last commander must be the lord protector;
-        commanders = targetNode.GarrisonedCommanders;
+        commanders = new List<Commander>();
+        commanders.AddRange(targetNode.GarrisonedCommanders);
         commanders.Add(targetNode.LordProtector);
     }
 }

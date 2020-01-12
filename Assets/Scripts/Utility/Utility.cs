@@ -182,6 +182,17 @@ public static class Utility
 
         return objs;
     }
+
+    public static int RoundUpInt(float toRound)
+    {
+        float nearest = Mathf.Round(toRound);
+        float f = toRound - nearest;
+        
+        //means it was like 1.7, f = -0.3, return 1.7 - (-0.3)
+        //1.2, f = 0.2, return 1.2 - 0.2 
+        int r = Mathf.RoundToInt(toRound - (f));
+        return r;
+    }
 }
 
 [System.Serializable]

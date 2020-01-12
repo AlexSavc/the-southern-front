@@ -53,6 +53,9 @@ TagManager:
   - name: Structures
     uniqueID: 3281724799
     locked: 0
-  - name: New Layer
+  - name: CommanderDisplay
+    uniqueID: 586419409
+    locked: 0
+  - name: Decorations
     uniqueID: 4024695725
     locked: 0

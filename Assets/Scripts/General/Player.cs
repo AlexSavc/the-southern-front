@@ -38,7 +38,14 @@ public class Player : MonoBehaviour
         commanderParent = new GameObject("Commander Parent");
         commanderParent.transform.parent = transform;
         TempAddCommander();
-        gold = 10;
+    }
+
+    void Start()
+    {
+        TurnManager.Instance.onTurnStart += OnTurnStart;
+        TurnManager.Instance.onTurnEnd += OnTurnEnd;
+
+        gold = starterGold;
     }
 
     void TempAddCommander()
@@ -82,6 +89,36 @@ public class Player : MonoBehaviour
         com.rank = Commander.Rank.general;
 
         commanders.Add(com);
+    }
+
+    public void OnTurnStart(Player player)
+    {
+        if (player != this) return;
+        NodeTurnUpdate(true);
+    }
+
+    public void OnTurnEnd(Player player)
+    {
+        if (player != this) return;
+        NodeTurnUpdate(false);
+    }
+
+    private void NodeTurnUpdate(bool turnStart)
+    {
+        if(turnStart)
+        {
+            foreach(Node node in ownedNodes)
+            {
+                node.OnTurnStart();
+            }
+        }
+        else
+        {
+            foreach (Node node in ownedNodes)
+            {
+                node.OnTurnEnd();
+            }
+        }
     }
 }
 

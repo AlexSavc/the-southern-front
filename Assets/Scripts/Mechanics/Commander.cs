@@ -7,6 +7,9 @@ public class Commander : MonoBehaviour, IGarrison
     public Sprite sprite;
     public string commaderName;
     public CommanderDataObject commanderDataObject;
+    [SerializeField]
+    private Player owner;
+    public Player Owner { get { return owner; } }
 
     public bool legendary;
 

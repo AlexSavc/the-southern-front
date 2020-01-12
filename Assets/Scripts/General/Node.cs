@@ -53,6 +53,9 @@ public class Node : MonoBehaviour, ISelectable, IInteractable, IGarrison
     public Commander LordProtector { get { return lordProtector; } set { } }
     public List<Unit> Garrison {  get { return lordProtector.Units; }  set {  } }
 
+    public delegate void NodeSelectionDelegate(bool selected);
+    public event NodeSelectionDelegate onNodeSelection;
+
     void Awake()
     {
         map = FindObjectOfType<Map>();
@@ -74,11 +77,23 @@ public class Node : MonoBehaviour, ISelectable, IInteractable, IGarrison
         animator.SetTrigger("Selection");
         sound.PlaySelectionSound();
         SuggestRoadBuild();
+        onNodeSelection?.Invoke(true);
     }
 
     public void OnDeSelection()
     {
         HideBuildSuggestion();
+        onNodeSelection?.Invoke(false);
+    }
+
+    public void OnTurnStart()
+    {
+        SetCommanderVisibility(true);
+    }
+
+    public void OnTurnEnd()
+    {
+        SetCommanderVisibility(false);
     }
 
     public void OnInteraction(GameObject toInteract)
@@ -301,8 +316,7 @@ public class Node : MonoBehaviour, ISelectable, IInteractable, IGarrison
         if (HasRoadTo(node)) return;
         else road.DisplayBuildableRoad(node);
     }
-
-
+    
     public void ShowBuildSuggestionTo(Node node)
     {
         if (!IsSmallNode) return;
@@ -407,6 +421,14 @@ public class Node : MonoBehaviour, ISelectable, IInteractable, IGarrison
         Sprite temp = CommanderDataObject.Instance.faces[Random.Range(0, CommanderDataObject.Instance.faces.Count)];
         lordProtector.sprite = temp;
         lordProtector.rank = Commander.Rank.general;
+    }
+
+    private void SetCommanderVisibility(bool visible)
+    {
+        if(GetComponent<DisplayGenerals>())
+        {
+            GetComponent<DisplayGenerals>().SetVisible(visible);
+        }
     }
 }
 
