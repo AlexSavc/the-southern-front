@@ -10,16 +10,18 @@ public class DisplayGenerals : MonoBehaviour
     [SerializeField]
     private CommanderDisplay DisplayPrefab;
     [SerializeField]
-    private GameObject DefaultHolder;
+    private HorizontalObjectLayout DefaultHolder;
     [SerializeField]
-    private GameObject SelectedHolder;
+    private HorizontalObjectLayout SelectedHolder;
     [SerializeField]
     private Vector2 offset;
     private List<Commander> commanders;
 
     [SerializeField]
     private bool isVisible;
-    
+    [SerializeField]
+    private bool isNodeSelected;
+
 
     public void Start()
     {
@@ -27,8 +29,14 @@ public class DisplayGenerals : MonoBehaviour
         targetNode.onNodeSelection += SetDisplay;
     }
 
+    public void SetUpListeners()
+    {
+        targetNode.GetOwner().onCommanderAdded += OnCommanderAdded;
+    }
+
     private void SetDisplay(bool nodeIsSelected)
     {
+        isNodeSelected = nodeIsSelected;
         if (!isVisible) return;
         GetCommanders();
         ClearDisplays();
@@ -39,6 +47,8 @@ public class DisplayGenerals : MonoBehaviour
             GameObject obj = Instantiate(DisplayPrefab.gameObject, display);
             SetCommanderDisplay(commander, obj, nodeIsSelected);
         }
+
+        display.gameObject.GetComponent<HorizontalObjectLayout>().Refresh();
     }
 
     public void SetVisible(bool visible)
@@ -50,8 +60,8 @@ public class DisplayGenerals : MonoBehaviour
 
     private void ClearDisplays()
     {
-        Utility.ClearChildren(DefaultHolder);
-        Utility.ClearChildren(SelectedHolder);
+        Utility.ClearChildren(DefaultHolder.gameObject);
+        Utility.ClearChildren(SelectedHolder.gameObject);
     }
 
     private Transform GetHolder(bool isSelected)
@@ -69,8 +79,13 @@ public class DisplayGenerals : MonoBehaviour
     private void GetCommanders()
     {
         //The Last commander must be the lord protector;
-        commanders = new List<Commander>();
-        commanders.AddRange(targetNode.GarrisonedCommanders);
+        commanders = new List<Commander>(targetNode.GarrisonedCommanders);
         commanders.Add(targetNode.LordProtector);
+    }
+
+    private void OnCommanderAdded(Commander comm)
+    { 
+        GetCommanders();
+        if (commanders.Contains(comm)) SetDisplay(isNodeSelected);
     }
 }

@@ -30,6 +30,9 @@ public class Player : MonoBehaviour
     [Header("Units")]
     public GameObject UnitPrefab;
 
+    public delegate void AddedCommanderDelegate(Commander added);
+    public event AddedCommanderDelegate onCommanderAdded;
+
     public void Awake()
     {
         //Checks if it's null in case The node adds itself, you dont wanna overwrite it
@@ -37,7 +40,6 @@ public class Player : MonoBehaviour
         commanders = new List<Commander>();
         commanderParent = new GameObject("Commander Parent");
         commanderParent.transform.parent = transform;
-        TempAddCommander();
     }
 
     void Start()
@@ -46,6 +48,7 @@ public class Player : MonoBehaviour
         TurnManager.Instance.onTurnEnd += OnTurnEnd;
 
         gold = starterGold;
+        TempAddCommander();
     }
 
     void TempAddCommander()
@@ -77,7 +80,7 @@ public class Player : MonoBehaviour
     {
         gold -= amount;
     }
-    public void CreateCommander()
+    private void CreateCommander()
     {
         GameObject commanda = new GameObject("Commander");
         commanda.transform.parent = commanderParent.transform;
@@ -89,6 +92,26 @@ public class Player : MonoBehaviour
         com.rank = Commander.Rank.general;
 
         commanders.Add(com);
+
+        //ALL THIS IS TRASH TEST CODE CHANGE IT
+        if(ownedNodes != null && ownedNodes.Count >= 1)
+        GarrisonCommander(com, ownedNodes[0]);
+
+        
+    }
+
+    private void GarrisonCommander(Commander comm, Node node)
+    {
+        if(node.GetOwner() == this)
+        {
+            node.GarrisonedCommanders.Add(comm);
+            onCommanderAdded?.Invoke(comm);
+        }
+    }
+
+    public void AddCommander()
+    {
+        CreateCommander();
     }
 
     public void OnTurnStart(Player player)

@@ -16,7 +16,11 @@ public class Node : MonoBehaviour, ISelectable, IInteractable, IGarrison
 
     public SpriteRenderer rend;
     public GameObject nodeSpriteParent;
-
+    [Header("Structure")]
+    [SerializeField]
+    private Structure structure;
+    public Structure Structure { get { return structure; } }
+    [Header("Technical")]
     [SerializeField]
     private Player owner;
     public Player GetOwner() { return owner; }
@@ -47,17 +51,20 @@ public class Node : MonoBehaviour, ISelectable, IInteractable, IGarrison
     [SerializeField]
     private List<Commander> garrisonedCommanders;
     public List<Commander> GarrisonedCommanders { get { return garrisonedCommanders; } set { } }
+    public List<Unit> Garrison {  get { return lordProtector.Units; }  set {  } }
+
     [SerializeField]
     private Commander lordProtector;
-
     public Commander LordProtector { get { return lordProtector; } set { } }
-    public List<Unit> Garrison {  get { return lordProtector.Units; }  set {  } }
 
     public delegate void NodeSelectionDelegate(bool selected);
     public event NodeSelectionDelegate onNodeSelection;
 
+    
+
     void Awake()
     {
+        garrisonedCommanders = new List<Commander>();
         map = FindObjectOfType<Map>();
         map.OnGenerateMap += SetRoads;
     }
@@ -166,6 +173,7 @@ public class Node : MonoBehaviour, ISelectable, IInteractable, IGarrison
         yield return new WaitForSeconds(ownerSetDelay);
         SetOwner(player);
         AddSelfToOwner();
+        GetComponent<DisplayGenerals>().SetUpListeners();
         yield return null;
     }
 
@@ -429,6 +437,12 @@ public class Node : MonoBehaviour, ISelectable, IInteractable, IGarrison
         {
             GetComponent<DisplayGenerals>().SetVisible(visible);
         }
+    }
+
+    public void SetStructure(Structure struc)
+    {
+        if(structure == null)
+        structure = struc;
     }
 }
 

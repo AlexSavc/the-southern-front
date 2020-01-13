@@ -113,17 +113,6 @@ public class GarrisonSlot : MonoBehaviour
         }
     }
 
-    public void OnPressRemove()
-    {
-        //doesnt seem necessary
-        /*
-        OnCancelTransfer();
-        commanderButton.Deselect();
-        commanderButton.RemoveFromSelectedCommanders();
-        GarrisonMenu.Instance.UpdateAllGarrisonSlots();
-        Remove();*/
-    }
-
     void Remove()
     {
         Destroy(gameObject);

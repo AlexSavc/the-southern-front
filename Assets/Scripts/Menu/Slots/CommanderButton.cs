@@ -29,11 +29,6 @@ public class CommanderButton : MonoBehaviour
         SetDisplay();
     }
 
-    public void RefreshDisplay()
-    {
-        SetDisplay();
-    }
-
     public void OnPress()
     {
         if (commander == null) { Remove(); return; }

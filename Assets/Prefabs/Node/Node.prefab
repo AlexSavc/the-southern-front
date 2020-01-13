@@ -43,8 +43,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f16ef015d32464846b8bf29b9d4de933, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  VerticalAlignment: 2
   offset: {x: 0.4, y: 0.4}
   maxOnAxis: 4
+  debug: 0
 --- !u!1 &2354955388757906075
 GameObject:
   m_ObjectHideFlags: 0
@@ -406,10 +408,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetNode: {fileID: 885746525027516181}
   DisplayPrefab: {fileID: 401428311, guid: af38fee4a64228e48ba2572d97db1208, type: 3}
-  DefaultHolder: {fileID: 8575144231578825846}
-  SelectedHolder: {fileID: 1027275032452891709}
+  DefaultHolder: {fileID: 85533198144638062}
+  SelectedHolder: {fileID: 1942639246548076120}
   offset: {x: 0, y: 0}
   isVisible: 0
+  isNodeSelected: 0
 --- !u!1 &8575144231578825846
 GameObject:
   m_ObjectHideFlags: 0
@@ -453,8 +456,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f16ef015d32464846b8bf29b9d4de933, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  VerticalAlignment: 1
   offset: {x: 0.4, y: 0.4}
   maxOnAxis: 4
+  debug: 0
 --- !u!1 &8919076916175580116
 GameObject:
   m_ObjectHideFlags: 0

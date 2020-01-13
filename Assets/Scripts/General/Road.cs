@@ -164,7 +164,6 @@ public class Road : MonoBehaviour, ISelectable
 
     public void OnTryBuyRoad()
     {
-        Debug.Log("OnTryBuyRoad");
         PopupHandler popupHandler = FindObjectOfType<PopupHandler>();
         QuestionPopupInfo popup = new QuestionPopupInfo
         {

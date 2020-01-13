@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class Garrison : MonoBehaviour
 {
-    List<Unit> garrison;
+    //List<Unit> garrison;
 }

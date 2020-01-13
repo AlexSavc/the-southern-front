@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class CommanderMenu : MonoBehaviour
 {
+    private static CommanderMenu _instance;
+    public static CommanderMenu Instance { get { return _instance; } }
     public GameObject commanderButtonObj;
     public GameObject garrisonSlot;
     public GameObject addButton;
@@ -19,7 +22,7 @@ public class CommanderMenu : MonoBehaviour
     
     void Awake()
     {
-        
+        _instance = this;
     }
 
     public void Start()
@@ -27,7 +30,7 @@ public class CommanderMenu : MonoBehaviour
         turnManager = TurnManager.Instance;
     }
     
-    public void RefreshDisplay()
+    private void RefreshDisplay()
     {
         ClearCommanderMenu();
         Setup();
@@ -73,7 +76,15 @@ public class CommanderMenu : MonoBehaviour
 
     public void OnAddCommander()
     {
-        
+        currentPlayer.AddCommander();
+        StartCoroutine(RefreshWait());
+    }
+
+    public IEnumerator RefreshWait()
+    {
+        yield return new WaitForEndOfFrame();
+        Refresh();
+        yield return null;
     }
 
 
