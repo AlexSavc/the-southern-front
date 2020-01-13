@@ -8,10 +8,24 @@ public class Structure : MonoBehaviour
     private Node owner;
     public Node Owner { get { return owner; } }
 
+    [SerializeField]
+    private SpriteRenderer rend;
+    public Sprite sprite { get { return rend.sprite; } }
+
+    [SerializeField]
+    private string structureName;
+    public string StructureName { get { return structureName; } }
+
     public void SetOwner(Node node)
     {
         node.SetStructure(this);
         owner = node;
+    }
+
+    public void OnDemolish()
+    {
+        owner.RemoveStructure();
+        Destroy(gameObject);
     }
 }
 

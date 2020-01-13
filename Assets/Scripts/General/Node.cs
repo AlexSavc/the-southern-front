@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class Node : MonoBehaviour, ISelectable, IInteractable, IGarrison
 {
+    [HideInInspector]
     public int X;
+    [HideInInspector]
     public int Y;
 
+    [HideInInspector]
     public Vector2 pos;
-    public Vector4 roads; /*roads(N, E, S, W)*/
+    
 
     public Animator animator;
     public AudioManager sound;
@@ -46,6 +49,7 @@ public class Node : MonoBehaviour, ISelectable, IInteractable, IGarrison
     public Road eastRoad;
     public Road southRoad;
     public Road westRoad;
+    public Vector4 roads; /*roads(N, E, S, W)*/
 
     [Header("Garrison")]
     [SerializeField]
@@ -441,8 +445,13 @@ public class Node : MonoBehaviour, ISelectable, IInteractable, IGarrison
 
     public void SetStructure(Structure struc)
     {
-        if(structure == null)
+        if(structure == null && struc != null)
         structure = struc;
+    }
+
+    public void RemoveStructure()
+    {
+        structure = null;
     }
 }
 

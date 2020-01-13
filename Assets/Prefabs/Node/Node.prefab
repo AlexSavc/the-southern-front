@@ -316,6 +316,7 @@ GameObject:
   - component: {fileID: 885746525027516181}
   - component: {fileID: 1625106970182810949}
   - component: {fileID: 6282460431158660855}
+  - component: {fileID: 8153702135322200434}
   m_Layer: 0
   m_Name: Node
   m_TagString: Untagged
@@ -356,12 +357,12 @@ MonoBehaviour:
   X: 0
   Y: 0
   pos: {x: 0, y: 0}
-  roads: {x: 0, y: 0, z: 0, w: 0}
   animator: {fileID: 0}
   sound: {fileID: 0}
   map: {fileID: 0}
   rend: {fileID: 2852959527635631024}
   nodeSpriteParent: {fileID: 8919076916175580116}
+  structure: {fileID: 0}
   owner: {fileID: 0}
   IsSmallNode: 0
   smallNodeScale: 0.55
@@ -376,6 +377,7 @@ MonoBehaviour:
   eastRoad: {fileID: 0}
   southRoad: {fileID: 0}
   westRoad: {fileID: 0}
+  roads: {x: 0, y: 0, z: 0, w: 0}
   garrisonedCommanders: []
   lordProtector: {fileID: 0}
 --- !u!58 &1625106970182810949
@@ -413,6 +415,22 @@ MonoBehaviour:
   offset: {x: 0, y: 0}
   isVisible: 0
   isNodeSelected: 0
+--- !u!114 &8153702135322200434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7092248453330897440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f5813074858fa3479840970d1001daf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildable:
+  - {fileID: 5868266715441185181, guid: 2257242a222bc7d46a36976f3bbb47fb, type: 3}
+  debugBuild: 0
+  built: 0
 --- !u!1 &8575144231578825846
 GameObject:
   m_ObjectHideFlags: 0
