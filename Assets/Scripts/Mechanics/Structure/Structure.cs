@@ -22,7 +22,7 @@ public class Structure : MonoBehaviour
         owner = node;
     }
 
-    public void OnDemolish()
+    public void Demolish()
     {
         owner.RemoveStructure();
         Destroy(gameObject);

@@ -3,26 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using TMPro;
 
 [RequireComponent(typeof(Button))]
 public class RoundButton : MonoBehaviour
 {
-    Button button;
-    Image image;
-    string text;
+    [Header("Everything here is automatic")]
+    private Button button;
+    private Image image;
+    private string text = "button";
     UnityAction<RoundButtonData> buttonAction;
     RoundButtonData buttonData;
 
+    public TextMeshProUGUI textMesh;
+
     public void SetButton(RoundButtonData data)
     {
-        button = GetComponent<Button>();
+        if(button == null)button = GetComponent<Button>();
         button.onClick.AddListener(InvokeButtonAction);
+
+        buttonData = data;
 
         buttonAction = (RoundButtonData) => { RoundButtonData.buttonDelegate?.Invoke(buttonData.obj); };
 
         image = button.image;
         image.sprite = data.sprite;
         text = data.text;
+
+        textMesh.text = text;
     }
 
     private void InvokeButtonAction()

@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 5868266715441185182}
   - component: {fileID: 5868266715441185181}
   m_Layer: 0
-  m_Name: Windmill
+  m_Name: WatchTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58,7 +58,7 @@ Transform:
   m_GameObject: {fileID: 5868266715441185180}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.050044756, y: 0.050044756, z: 0.050044768}
+  m_LocalScale: {x: 0.04416099, y: 0.04416099, z: 0.044160992}
   m_Children:
   - {fileID: 6398044434204724180}
   m_Father: {fileID: 0}
@@ -101,7 +101,7 @@ SpriteRenderer:
   m_SortingLayerID: -1013242497
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 5656fd375f2d7864aa3fa8aaeebadeb9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c1aa43f015e8a3940893785179410f6a, type: 3}
   m_Color: {r: 0.9150943, g: 0.7593025, b: 0.617257, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -126,7 +126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   owner: {fileID: 0}
   rend: {fileID: 5868266715441185182}
-  structureName: Windmill
+  structureName: WatchTower
 --- !u!1 &7435791727583161117
 GameObject:
   m_ObjectHideFlags: 0
@@ -152,8 +152,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7435791727583161117}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.22, y: 0.348, z: 0}
+  m_LocalScale: {x: 0.5978, y: 0.3954994, z: 0.7}
   m_Children: []
   m_Father: {fileID: 6398044434204724180}
   m_RootOrder: 0
@@ -195,7 +195,7 @@ SpriteRenderer:
   m_SortingLayerID: -115060687
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a33894419f01aa24d82e21530bcceb56, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 170a0baae0cc6b24c9b971b892e74f57, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0

@@ -74,6 +74,7 @@ public class NodeMenu : MonoBehaviour
     {
         DeactivateAll();
         nodeMainMenu.SetActive(true);
+        nodeMainMenu.GetComponent<OpenNodeMenu>().SetNode(node);
         upperMenu.SetActive(true);
 
         if(node != null)
@@ -130,24 +131,6 @@ public class NodeMenu : MonoBehaviour
     {
         Deselect();
     }
-    /*
-    public void OpenGarrisson()
-    {
-        DeactivateAll();
-        nodeGarrissonMenu.SetActive(true);
-    }
-
-    public void OpenRecruitMenu()
-    {
-        DeactivateAll();
-        nodeRecruitMenu.SetActive(true);
-    }
-
-    public void OpenUpgradeMenu()
-    {
-        DeactivateAll();
-        nodeUpgradeMenu.SetActive(true);
-    }*/
 
     public void DeactivateAll()
     {

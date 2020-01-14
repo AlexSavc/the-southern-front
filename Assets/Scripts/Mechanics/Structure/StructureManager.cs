@@ -15,12 +15,23 @@ public class StructureManager : MonoBehaviour
     public void BuildStructure(Structure toBuild, Node node)
     {
         //Pass prefabs into here, because they will be instantiated
-        if(node.Structure == null)
+        if(node.Structure != null)
+        {
+            node.Structure.Demolish();
+        }
+        else
         {
             GameObject obj = Instantiate(toBuild.gameObject, node.transform);
             Structure newStructure = obj.GetComponent<Structure>();
             node.SetStructure(newStructure);
             newStructure.SetOwner(node);
         }
+
+        if(toBuild.StructureName == "Gulag")
+        {
+            AudioManager.Instance.PlaySovietAnthem();
+        }
+
+        OpenNodeMenu.Instance.GoBack();
     }
 }

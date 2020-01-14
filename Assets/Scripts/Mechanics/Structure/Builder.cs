@@ -34,20 +34,36 @@ public class Builder : MonoBehaviour
         else if (!debugBuild) { Demolish(); built = false; }
     }
 
+    /*public void OnTryBuild(object obj)
+    {
+        if(obj.GetType() == typeof(string))
+        {
+            foreach(Structure build in buildable)
+            {
+                if(build.StructureName == (string)obj)
+                {
+                    Build(build);
+                    return;
+                }
+            }
+        }
+    }*/
+
     public void OnTryBuild(object obj)
     {
-        if(obj.GetType() == typeof(Structure))
+        if (obj.GetType() == typeof(Structure))
         {
             if(Buildable.Contains((Structure)obj))
             {
                 Build((Structure)obj);
             }
         }
+        else Debug.LogError("Builder.OnTryBuild is not a structure");
     }
 
     private void Demolish()
     {
-        node.Structure.OnDemolish();
+        node.Structure.Demolish();
     }
 
     private void Build(Structure toBuild)

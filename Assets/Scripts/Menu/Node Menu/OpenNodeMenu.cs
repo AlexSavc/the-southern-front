@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class OpenNodeMenu : MonoBehaviour
 {
+    private static OpenNodeMenu _instance;
+    public static OpenNodeMenu Instance { get { return _instance; } }
     [SerializeField]
     private GameObject defaultMenu;
 
@@ -12,13 +14,20 @@ public class OpenNodeMenu : MonoBehaviour
     [SerializeField]
     private GameObject nodeRecruitMenu;
     [SerializeField]
-    private GameObject nodeUpgradeMenu;
+    private GameObject BuildMenu;
+    [SerializeField]
+    private Node selected;
 
     List<GameObject> allMenus;
 
+    void Awake()
+    {
+        _instance = this;
+    }
+
     void Start()
     {
-        allMenus = new List<GameObject>() { defaultMenu, nodeGarrissonMenu, nodeRecruitMenu, nodeUpgradeMenu };
+        allMenus = new List<GameObject>() { defaultMenu, nodeGarrissonMenu, nodeRecruitMenu, BuildMenu };
         DeactivateAll();
     }
 
@@ -43,11 +52,17 @@ public class OpenNodeMenu : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void OpenUpgradeMenu()
+    public void OpenBuildMenu()
     {
         DeactivateAll();
-        nodeUpgradeMenu.SetActive(true);
+        BuildMenu.SetActive(true);
+        BuildMenu.GetComponent<BuildMenu>().OpenBuildMenu(selected);
         gameObject.SetActive(false);
+    }
+
+    public void SetNode(Node node)
+    {
+        selected = node;
     }
 
     public void DeactivateAll()

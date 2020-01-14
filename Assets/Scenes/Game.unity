@@ -771,7 +771,7 @@ PrefabInstance:
     - target: {fileID: 6731710872916789280, guid: 976a0bf948a2dc24f99dff5cd15944f9,
         type: 3}
       propertyPath: m_Name
-      value: Upgrade
+      value: Build
       objectReference: {fileID: 0}
     - target: {fileID: 3928820589787363596, guid: 976a0bf948a2dc24f99dff5cd15944f9,
         type: 3}
@@ -897,7 +897,7 @@ PrefabInstance:
     - target: {fileID: 6683094711638109847, guid: 976a0bf948a2dc24f99dff5cd15944f9,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OpenUpgradeMenu
+      value: OpenBuildMenu
       objectReference: {fileID: 0}
     - target: {fileID: 4275834060340091182, guid: 976a0bf948a2dc24f99dff5cd15944f9,
         type: 3}
@@ -917,7 +917,7 @@ PrefabInstance:
     - target: {fileID: 3619990565291638797, guid: 976a0bf948a2dc24f99dff5cd15944f9,
         type: 3}
       propertyPath: m_text
-      value: Upgrade
+      value: Build
       objectReference: {fileID: 0}
     - target: {fileID: 3619990565291638797, guid: 976a0bf948a2dc24f99dff5cd15944f9,
         type: 3}
@@ -1602,7 +1602,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1236748405}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.99999994
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2781,6 +2781,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectionSound: {fileID: 8300000, guid: d8d04c6f80a1140db85ede568dab1f51, type: 3}
   DeselectionSound: {fileID: 8300000, guid: 6e8772b49f34d402a90016ed445d8a2f, type: 3}
+  SOVIET: {fileID: 8300000, guid: 5c08cdfdc5d659b448c5876d52106445, type: 3}
   source: {fileID: 0}
 --- !u!82 &423878520
 AudioSource:
@@ -5743,8 +5744,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00012299592, y: -0.000052761345}
-  m_SizeDelta: {x: -878.82025, y: 254.9}
+  m_AnchoredPosition: {x: 0.0001229966, y: -0.000052761345}
+  m_SizeDelta: {x: -2627.485, y: 254.9}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &717717666
 MonoBehaviour:
@@ -5976,7 +5977,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -12.45, y: 0}
+  m_AnchoredPosition: {x: -12.449951, y: 0}
   m_SizeDelta: {x: -24.9, y: -0.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &725617120
@@ -6707,7 +6708,8 @@ MonoBehaviour:
   defaultMenu: {fileID: 1554274905}
   nodeGarrissonMenu: {fileID: 1344603750}
   nodeRecruitMenu: {fileID: 914542881}
-  nodeUpgradeMenu: {fileID: 1893977495}
+  BuildMenu: {fileID: 1893977495}
+  selected: {fileID: 0}
 --- !u!1001 &866274137
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12967,7 +12969,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1554274906
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15913,7 +15915,7 @@ GameObject:
   - component: {fileID: 1893977498}
   - component: {fileID: 1893977497}
   m_Layer: 0
-  m_Name: UpgradeMenu
+  m_Name: BuildMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15926,7 +15928,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1893977495}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
@@ -15948,9 +15950,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1893977495}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 823bf52e9b91e6f4ab82ed9355d9a047, type: 3}
+  m_Script: {fileID: 11500000, guid: fbc0faace3ffc684b806a570375a15b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  roundButtonPrefab: {fileID: 6731710872916789280, guid: 976a0bf948a2dc24f99dff5cd15944f9,
+    type: 3}
+  content: {fileID: 717717664}
+  targetNode: {fileID: 0}
 --- !u!114 &1893977498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16050,8 +16056,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.00007136312, y: -0.000052761345}
-  m_SizeDelta: {x: -1660.8013, y: 254.9}
+  m_AnchoredPosition: {x: 0.000050760103, y: -0.000052761345}
+  m_SizeDelta: {x: -1927.5853, y: 254.9}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1908973969
 MonoBehaviour:
@@ -16863,7 +16869,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 20.450062, y: -127.45}
+  m_AnchoredPosition: {x: 20.45, y: -127.45}
   m_SizeDelta: {x: 40.9, y: 238.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2057828703

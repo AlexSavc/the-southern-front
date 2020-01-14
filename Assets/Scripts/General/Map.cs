@@ -100,7 +100,7 @@ public class Map : MonoBehaviour
                 //<EXPERIMENTAL
                 node.roads = new Vector4(0, 0, 0, 0);
 
-                float factor = 0.35f;
+                float factor = 0.2f;
                 Vector3 neuPos;
                 if(info == null)
                 {
