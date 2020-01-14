@@ -453,11 +453,6 @@ public class Node : MonoBehaviour, ISelectable, IInteractable, IGarrison
     {
         structure = null;
     }
-
-    public void AddBuildMenuListeners()
-    {
-        
-    }
 }
 
 [System.Serializable]

@@ -5,10 +5,17 @@ using System;
 
 public class PopupHandler : MonoBehaviour
 {
+    private static PopupHandler _instance;
+    public static PopupHandler Instance { get { return _instance; } } 
     public GameObject infoPopup;
     public GameObject questionPopup;
 
     public List<object> popupQueue;
+
+    void Awake()
+    {
+        _instance = this;
+    }
 
     void Start()
     {

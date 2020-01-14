@@ -5,6 +5,9 @@ using TMPro;
 
 public class Economy : MonoBehaviour
 {
+    private static Economy _instance;
+    public static Economy Instance { get { return _instance; } }
+
     [SerializeField]
     private Player[] players;
 
@@ -15,6 +18,11 @@ public class Economy : MonoBehaviour
     private TextMeshProUGUI nextTurnGold;
     [SerializeField]
     private TextMeshProUGUI currentGoldDisplay;
+
+    void Awake()
+    {
+        _instance = this;
+    }
 
     public void SetPlayers(Player[] set)
     {
@@ -32,8 +40,7 @@ public class Economy : MonoBehaviour
         SetCurrentGold(player.CurrentGold()); // Add Animation
         SetNextTurnGold(GetProjectedBudget(player));
     }
-
-
+    
     public void CollectTaxes(Player player)
     {
         foreach(Node node in player.GetNodesOwned())
@@ -92,7 +99,6 @@ public class Economy : MonoBehaviour
         }
         success = true;
         RemoveGold(info.price);
-
     }
 
     public void RemoveGold(int amount)
@@ -106,23 +112,23 @@ public class Economy : MonoBehaviour
 public class BuyableInfo
 {
     public int price;
-    public int maintenance;
-    public int maintenanceFrequency;
+    public float maintenance;
     public int recupOnDisband;
+    public float revenue;
 
-    public BuyableInfo(int Price, int Maintenance, int MaintenanceFrequency, int RecupOnDisband)
+    public BuyableInfo(int Price, float Maintenance, int RecupOnDisband, float Revenue)
     {
         price = Price;
         maintenance = Maintenance;
-        maintenanceFrequency = MaintenanceFrequency;
         recupOnDisband = RecupOnDisband;
+        revenue = Revenue;
     }
 
     public BuyableInfo(BuyableInfo template)
     {
         price = template.price;
         maintenance = template.maintenance;
-        maintenanceFrequency = template.maintenanceFrequency;
         recupOnDisband = template.recupOnDisband;
+        revenue = template.revenue;
     }
 }

@@ -436,8 +436,7 @@ MonoBehaviour:
   - {fileID: 5868266715441185181, guid: 2257242a222bc7d46a36976f3bbb47fb, type: 3}
   - {fileID: 5868266715441185181, guid: 3b026ec955772434a8e9341292defdca, type: 3}
   - {fileID: 5868266715441185181, guid: b11d741355eaf1c458995ec0379f2eff, type: 3}
-  debugBuild: 0
-  built: 0
+  demolishSprite: {fileID: 21300000, guid: 61f88d5e47861a241b29bc9606413f60, type: 3}
 --- !u!1 &8575144231578825846
 GameObject:
   m_ObjectHideFlags: 0

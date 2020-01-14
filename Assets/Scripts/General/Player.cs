@@ -29,6 +29,11 @@ public class Player : MonoBehaviour
     public GameObject commanderParent;
     [Header("Units")]
     public GameObject UnitPrefab;
+    [Header("Economy")]
+    [SerializeField]
+    private float percentOfPoint;
+    [SerializeField]
+    private int fullPercentsPoints;
 
     public delegate void AddedCommanderDelegate(Commander added);
     public event AddedCommanderDelegate onCommanderAdded;
@@ -75,6 +80,22 @@ public class Player : MonoBehaviour
     {
         gold += amount;
     }
+    public void AddGold(float amount)
+    {
+        int add = Utility.RoundDownInt(amount);
+        gold += add;
+        AddPercent(Utility.GetDecimalPart(amount));
+    }
+
+    private void AddPercent(float amount)
+    {
+        percentOfPoint += amount;
+        if(percentOfPoint >= 1)
+        {
+            AddGold(Utility.RoundDownInt(percentOfPoint));
+            percentOfPoint = Utility.GetDecimalPart(percentOfPoint);
+        }
+    }
 
     public void RemoveGold(int amount)
     {
@@ -96,8 +117,6 @@ public class Player : MonoBehaviour
         //ALL THIS IS TRASH TEST CODE CHANGE IT
         if(ownedNodes != null && ownedNodes.Count >= 1)
         GarrisonCommander(com, ownedNodes[0]);
-
-        
     }
 
     private void GarrisonCommander(Commander comm, Node node)

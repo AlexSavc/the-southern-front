@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Road SO", menuName = "Data Object/Road")]
-public class RoadSO : ScriptableObject
+[CreateAssetMenu(fileName = "Mine SO", menuName = "Data Object/Mine")]
+public class MineSO : ScriptableObject
 {
     public BuyableInfo buyInfo;
 }

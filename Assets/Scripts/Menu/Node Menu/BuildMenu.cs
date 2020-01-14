@@ -24,8 +24,13 @@ public class BuildMenu : MonoBehaviour
 
     public void OpenBuildMenu(Node node)
     {
-        ClearButtons();
         targetNode = node;
+        RefreshButtons();
+    }
+
+    public void RefreshButtons()
+    {
+        ClearButtons();
         SetButtons();
     }
 

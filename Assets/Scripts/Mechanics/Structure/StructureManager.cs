@@ -19,13 +19,12 @@ public class StructureManager : MonoBehaviour
         {
             node.Structure.Demolish();
         }
-        else
-        {
-            GameObject obj = Instantiate(toBuild.gameObject, node.transform);
-            Structure newStructure = obj.GetComponent<Structure>();
-            node.SetStructure(newStructure);
-            newStructure.SetOwner(node);
-        }
+        
+        GameObject obj = Instantiate(toBuild.gameObject, node.transform);
+        Structure newStructure = obj.GetComponent<Structure>();
+        node.SetStructure(newStructure);
+        newStructure.SetOwner(node);
+        
 
         if(toBuild.StructureName == "Gulag")
         {

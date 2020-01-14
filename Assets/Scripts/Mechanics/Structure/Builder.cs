@@ -12,8 +12,10 @@ public class Builder : MonoBehaviour
     private StructureManager manager;
     private Node node;
 
-    public bool debugBuild = false;
-    public bool built = false;
+    [SerializeField]
+    private Sprite demolishSprite;
+
+    Structure tryBuild;
 
     void Start()
     {
@@ -21,41 +23,13 @@ public class Builder : MonoBehaviour
         node = GetComponent<Node>();
     }
 
-    void Update()
-    {
-        if (!built)
-        {
-            if (debugBuild)
-            {
-                OnTryBuild(buildable[0]);
-                built = true;
-            }
-        }
-        else if (!debugBuild) { Demolish(); built = false; }
-    }
-
-    /*public void OnTryBuild(object obj)
-    {
-        if(obj.GetType() == typeof(string))
-        {
-            foreach(Structure build in buildable)
-            {
-                if(build.StructureName == (string)obj)
-                {
-                    Build(build);
-                    return;
-                }
-            }
-        }
-    }*/
-
     public void OnTryBuild(object obj)
     {
         if (obj.GetType() == typeof(Structure))
         {
             if(Buildable.Contains((Structure)obj))
             {
-                Build((Structure)obj);
+                TryBuild((Structure)obj);
             }
         }
         else Debug.LogError("Builder.OnTryBuild is not a structure");
@@ -65,15 +39,48 @@ public class Builder : MonoBehaviour
     {
         node.Structure.Demolish();
     }
-
-    private void Build(Structure toBuild)
+    private void Demolish(object obj)
     {
-        manager.BuildStructure(toBuild, node);
+        //This is for the RoundButton Delegate
+        Demolish();
+        BuildMenu.Instance.RefreshButtons();
+    }
+
+    private void TryBuild(Structure toBuild)
+    {
+        tryBuild = toBuild;
+        
+        QuestionPopupInfo popup = new QuestionPopupInfo
+        {
+            questionText = "Would you like to buy This for (temporary) " + 1,// SET THIS TO SCRIPTABLEOBJECT
+            NoButtonText = "Cancel",
+            YesButtonText = "Buy it",
+            OnYes = OnBuyBuild
+        };
+        PopupHandler.Instance.OnQuestionPopup(popup);
+    }
+
+    public void OnBuyBuild()
+    {
+        //USE SCRIPTABLEOBJECT HERE
+        /*bool bought;
+        Economy.instance.OnBuy(new BuyableInfo(roadSO.buyInfo), out bought);
+        if (bought)
+        {*/
+            manager.BuildStructure(tryBuild, node);
+        /*}*/
+
+
     }
 
     public List<RoundButtonData> GetBuildableData()
     {
         List<RoundButtonData> buttonData = new List<RoundButtonData>();
+        if(node.Structure != null)
+        {
+            buttonData.Add(GetDemolishButton());
+            return buttonData;
+        }
         foreach(Structure build in buildable)
         {
             RoundButtonData data = new RoundButtonData
@@ -87,5 +94,18 @@ public class Builder : MonoBehaviour
         }
 
         return buttonData;
+    }
+
+    private RoundButtonData GetDemolishButton()
+    {
+        RoundButtonData data = new RoundButtonData
+        {
+            buttonDelegate = Demolish,
+            sprite = demolishSprite,
+            text = "Demolish "+node.Structure.StructureName,
+            obj = null
+        };
+
+        return data;
     }
 }

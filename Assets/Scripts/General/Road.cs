@@ -164,7 +164,6 @@ public class Road : MonoBehaviour, ISelectable
 
     public void OnTryBuyRoad()
     {
-        PopupHandler popupHandler = FindObjectOfType<PopupHandler>();
         QuestionPopupInfo popup = new QuestionPopupInfo
         {
             questionText = "Would you like to buy Road for " + roadSO.buyInfo.price,
@@ -172,12 +171,11 @@ public class Road : MonoBehaviour, ISelectable
             YesButtonText = "Buy it",
             OnYes = OnBuyRoad
         };
-        popupHandler.OnQuestionPopup(popup);
+        PopupHandler.Instance.OnQuestionPopup(popup);
     }
 
     void OnBuyRoad()
     {
-        Debug.Log("OnBuyRoad");
         Economy economy = FindObjectOfType<Economy>();
         bool bought;
         economy.OnBuy(new BuyableInfo(roadSO.buyInfo), out bought);

@@ -16,6 +16,9 @@ public class Structure : MonoBehaviour
     private string structureName;
     public string StructureName { get { return structureName; } }
 
+    //FIX SCRIPTABLEOBJECTS
+    public ScriptableObject scriptableObject;
+
     public void SetOwner(Node node)
     {
         node.SetStructure(this);
