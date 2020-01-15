@@ -38,12 +38,21 @@ public class Builder : MonoBehaviour
     private void Demolish()
     {
         node.Structure.Demolish();
+        BuildMenu.Instance.RefreshButtons();
     }
-    private void Demolish(object obj)
+
+    private void TryDemolish(object obj)
     {
         //This is for the RoundButton Delegate
-        Demolish();
-        BuildMenu.Instance.RefreshButtons();
+        QuestionPopupInfo popup = new QuestionPopupInfo
+        {
+            questionText = "Would you like to demolish " + node.Structure.StructureName + 
+                           " and get "+node.Structure.buyableInfo.buyInfo.recupOnDisband +" Geld back",
+            NoButtonText = "No",
+            YesButtonText = "Yes",
+            OnYes = Demolish
+        };
+        PopupHandler.Instance.OnQuestionPopup(popup);
     }
 
     private void TryBuild(Structure toBuild)
@@ -52,9 +61,9 @@ public class Builder : MonoBehaviour
         
         QuestionPopupInfo popup = new QuestionPopupInfo
         {
-            questionText = "Would you like to buy This for (temporary) " + 1,// SET THIS TO SCRIPTABLEOBJECT
-            NoButtonText = "Cancel",
-            YesButtonText = "Buy it",
+            questionText = "Would you like to buy This for " + tryBuild.buyableInfo.buyInfo.price + " Geld",
+            NoButtonText = "No",
+            YesButtonText = "Yes",
             OnYes = OnBuyBuild
         };
         PopupHandler.Instance.OnQuestionPopup(popup);
@@ -62,15 +71,12 @@ public class Builder : MonoBehaviour
 
     public void OnBuyBuild()
     {
-        //USE SCRIPTABLEOBJECT HERE
-        /*bool bought;
-        Economy.instance.OnBuy(new BuyableInfo(roadSO.buyInfo), out bought);
+        bool bought;
+        Economy.Instance.OnBuy(new BuyableInfo(tryBuild.buyableInfo.buyInfo), out bought);
         if (bought)
-        {*/
+        {
             manager.BuildStructure(tryBuild, node);
-        /*}*/
-
-
+        }
     }
 
     public List<RoundButtonData> GetBuildableData()
@@ -100,7 +106,7 @@ public class Builder : MonoBehaviour
     {
         RoundButtonData data = new RoundButtonData
         {
-            buttonDelegate = Demolish,
+            buttonDelegate = TryDemolish,
             sprite = demolishSprite,
             text = "Demolish "+node.Structure.StructureName,
             obj = null

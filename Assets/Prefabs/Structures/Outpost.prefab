@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 5868266715441185182}
   - component: {fileID: 5868266715441185181}
   m_Layer: 0
-  m_Name: WatchTower
+  m_Name: Outpost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -126,7 +126,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   owner: {fileID: 0}
   rend: {fileID: 5868266715441185182}
-  structureName: WatchTower
+  structureName: Outpost
+  buyableInfo: {fileID: 11400000, guid: 832d87fee72605a498188b868e340d12, type: 2}
 --- !u!1 &7435791727583161117
 GameObject:
   m_ObjectHideFlags: 0

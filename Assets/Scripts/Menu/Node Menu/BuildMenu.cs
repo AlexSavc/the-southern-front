@@ -19,7 +19,8 @@ public class BuildMenu : MonoBehaviour
     {
         buttonObjects = new List<GameObject>();
         _instance = this;
-        if (roundButtonPrefab.GetComponentInChildren<RoundButton>() == false) throw new System.Exception("Round Button prefab has no RoundButton Component");
+        if (roundButtonPrefab.GetComponentInChildren<RoundButton>() == false)
+            throw new System.Exception("Round Button prefab has no RoundButton Component");
     }
 
     public void OpenBuildMenu(Node node)

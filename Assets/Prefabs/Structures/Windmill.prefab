@@ -127,6 +127,7 @@ MonoBehaviour:
   owner: {fileID: 0}
   rend: {fileID: 5868266715441185182}
   structureName: Windmill
+  buyableInfo: {fileID: 11400000, guid: d5762a93e27e8c94ab9d252ccd1f524d, type: 2}
 --- !u!1 &7435791727583161117
 GameObject:
   m_ObjectHideFlags: 0

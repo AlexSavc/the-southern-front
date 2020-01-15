@@ -17,7 +17,7 @@ public class Structure : MonoBehaviour
     public string StructureName { get { return structureName; } }
 
     //FIX SCRIPTABLEOBJECTS
-    public ScriptableObject scriptableObject;
+    public BuyableInfoSO buyableInfo;
 
     public void SetOwner(Node node)
     {
@@ -27,6 +27,7 @@ public class Structure : MonoBehaviour
 
     public void Demolish()
     {
+        Economy.Instance.AddGold(buyableInfo.buyInfo.recupOnDisband);
         owner.RemoveStructure();
         Destroy(gameObject);
     }

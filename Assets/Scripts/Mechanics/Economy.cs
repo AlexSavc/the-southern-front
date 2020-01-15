@@ -18,6 +18,8 @@ public class Economy : MonoBehaviour
     private TextMeshProUGUI nextTurnGold;
     [SerializeField]
     private TextMeshProUGUI currentGoldDisplay;
+    [SerializeField]
+    private UnityEngine.UI.Slider percentSlider;
 
     void Awake()
     {
@@ -39,6 +41,7 @@ public class Economy : MonoBehaviour
         currentPlayer = player;
         SetCurrentGold(player.CurrentGold()); // Add Animation
         SetNextTurnGold(GetProjectedBudget(player));
+        SetPercentSlider(currentPlayer.PercentOfPoint);
     }
     
     public void CollectTaxes(Player player)
@@ -57,6 +60,11 @@ public class Economy : MonoBehaviour
     public void SetCurrentGold(int amount)
     {
         currentGoldDisplay.text = amount.ToString();
+    }
+
+    public void SetPercentSlider(float percent)
+    {
+        percentSlider.value = percent;
     }
 
     public int GetProjectedBudget(Player player)
@@ -104,6 +112,12 @@ public class Economy : MonoBehaviour
     public void RemoveGold(int amount)
     {
         currentPlayer.RemoveGold(amount);
+        SetCurrentGold(currentPlayer.CurrentGold());
+    }
+
+    public void AddGold(int amount)
+    {
+        currentPlayer.AddGold(amount);
         SetCurrentGold(currentPlayer.CurrentGold());
     }
 }

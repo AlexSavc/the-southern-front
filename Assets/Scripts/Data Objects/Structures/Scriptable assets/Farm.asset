@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 08e69982fe777494b88078c60053eeff, type: 3}
-  m_Name: Road SO
+  m_Name: Farm
   m_EditorClassIdentifier: 
   buyInfo:
-    price: 1
-    maintenance: 1
-    maintenanceFrequency: 1
+    price: 2
+    maintenance: 0
     recupOnDisband: 1
+    revenue: 2

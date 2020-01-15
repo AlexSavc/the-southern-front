@@ -110,7 +110,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 84, y: -88.409996}
+  m_AnchoredPosition: {x: -83.94998, y: -88.41001}
   m_SizeDelta: {x: 159.1, y: 87.86}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9064449577640263280
@@ -281,7 +281,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: Yes
 --- !u!1 &9064449577908377126
 GameObject:
   m_ObjectHideFlags: 0
@@ -318,7 +318,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -84, y: -88.409996}
+  m_AnchoredPosition: {x: 84.04996, y: -88.409996}
   m_SizeDelta: {x: 159.2, y: 87.86}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9064449577908377130
@@ -342,7 +342,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.740566, g: 1, b: 0.76344186, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -563,7 +563,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: No
 --- !u!1 &9064449578844981398
 GameObject:
   m_ObjectHideFlags: 0

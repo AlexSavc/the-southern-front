@@ -32,6 +32,7 @@ public class Player : MonoBehaviour
     [Header("Economy")]
     [SerializeField]
     private float percentOfPoint;
+    public float PercentOfPoint { get { return percentOfPoint; } }
     [SerializeField]
     private int fullPercentsPoints;
 
@@ -80,6 +81,7 @@ public class Player : MonoBehaviour
     {
         gold += amount;
     }
+
     public void AddGold(float amount)
     {
         int add = Utility.RoundDownInt(amount);

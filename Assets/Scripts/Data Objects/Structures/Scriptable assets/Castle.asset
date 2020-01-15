@@ -9,6 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 733755093bf9fff42b2e31a55be74c78, type: 3}
-  m_Name: Farm SO
+  m_Script: {fileID: 11500000, guid: 08e69982fe777494b88078c60053eeff, type: 3}
+  m_Name: Castle
   m_EditorClassIdentifier: 
+  buyInfo:
+    price: 5
+    maintenance: 1
+    recupOnDisband: 2
+    revenue: 0

@@ -175,7 +175,7 @@ MonoBehaviour:
   parentNode: {fileID: 0}
   IsActive: 0
   resistDeselection: 0
-  roadSO: {fileID: 11400000, guid: de4bcd6dead3d1e42913c7543d20485e, type: 2}
+  buyableInfo: {fileID: 11400000, guid: de4bcd6dead3d1e42913c7543d20485e, type: 2}
 --- !u!95 &8404751646441667634
 Animator:
   serializedVersion: 3

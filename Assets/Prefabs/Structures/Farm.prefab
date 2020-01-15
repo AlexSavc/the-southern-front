@@ -127,6 +127,7 @@ MonoBehaviour:
   owner: {fileID: 0}
   rend: {fileID: 5868266715441185182}
   structureName: Farm
+  buyableInfo: {fileID: 11400000, guid: 9f1b948cb6005c746a7b2f295d5cb1ff, type: 2}
 --- !u!1 &7435791727583161117
 GameObject:
   m_ObjectHideFlags: 0

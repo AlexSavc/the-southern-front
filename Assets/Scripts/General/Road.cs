@@ -19,7 +19,7 @@ public class Road : MonoBehaviour, ISelectable
     public bool IsActive = false;
     public bool resistDeselection = false;
 
-    public RoadSO roadSO;
+    public BuyableInfoSO buyableInfo;
 
     public Dictionary<string, QuestionPopupInfo> popups;
 
@@ -166,9 +166,9 @@ public class Road : MonoBehaviour, ISelectable
     {
         QuestionPopupInfo popup = new QuestionPopupInfo
         {
-            questionText = "Would you like to buy Road for " + roadSO.buyInfo.price,
-            NoButtonText = "Cancel",
-            YesButtonText = "Buy it",
+            questionText = "Would you like to buy Road for " + buyableInfo.buyInfo.price,
+            NoButtonText = "No",
+            YesButtonText = "Yes",
             OnYes = OnBuyRoad
         };
         PopupHandler.Instance.OnQuestionPopup(popup);
@@ -178,7 +178,7 @@ public class Road : MonoBehaviour, ISelectable
     {
         Economy economy = FindObjectOfType<Economy>();
         bool bought;
-        economy.OnBuy(new BuyableInfo(roadSO.buyInfo), out bought);
+        economy.OnBuy(new BuyableInfo(buyableInfo.buyInfo), out bought);
         if(bought)
         {
             parentNode.OnBoughtRoad(this);
