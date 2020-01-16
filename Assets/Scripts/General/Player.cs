@@ -31,7 +31,7 @@ public class Player : MonoBehaviour
     public GameObject UnitPrefab;
     [Header("Economy")]
     [SerializeField]
-    private float percentOfPoint;
+    private float percentOfPoint = 0;
     public float PercentOfPoint { get { return percentOfPoint; } }
     [SerializeField]
     private int fullPercentsPoints;
@@ -87,6 +87,27 @@ public class Player : MonoBehaviour
         int add = Utility.RoundDownInt(amount);
         gold += add;
         AddPercent(Utility.GetDecimalPart(amount));
+    }
+
+    public void CollectTaxes()
+    {
+
+    }
+
+    public int GetProjectedTaxes()
+    {
+        float tax = CountRawTaxes();
+        return 0;
+    }
+
+    private float CountRawTaxes()
+    {
+        float tax = 0;
+        foreach(Node node in ownedNodes)
+        {
+            tax += node.GetRevenue();
+        }
+        return (int)tax;
     }
 
     private void AddPercent(float amount)

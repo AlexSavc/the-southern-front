@@ -37,8 +37,6 @@ public class Node : MonoBehaviour, ISelectable, IInteractable, IGarrison
     public string nodeName;
     public string nodeDescription;
 
-    private int goldPerTurn;
-
     public float ownerSetDelay = 0.001f;
     [Header("Roads")]
     public GameObject roadPrefab;
@@ -191,14 +189,20 @@ public class Node : MonoBehaviour, ISelectable, IInteractable, IGarrison
 
     public void PayTaxes()
     {
-        owner.AddGold(GoldPerTurn());
+        throw new System.Exception("Node.PayTaxes: This one does nothing");
+        //owner.AddGold(GetRevenue());
     }
 
-    public int GoldPerTurn()
+    public float GetRevenue()
     {
-        if (IsSmallNode) goldPerTurn = 0;
-        else goldPerTurn = 1;
-        return goldPerTurn;
+        float revenue = 0;
+        if (structure != null)
+        {
+            if (structure.buyableInfo == null) throw new System.Exception(nodeName + ": structure.BuyableInfo is Null");
+            revenue = structure.buyableInfo.buyInfo.revenue;
+        }
+        
+        return revenue;
     }
 
     public void AddSelfToOwner()

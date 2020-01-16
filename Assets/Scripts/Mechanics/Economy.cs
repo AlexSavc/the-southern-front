@@ -46,10 +46,7 @@ public class Economy : MonoBehaviour
     
     public void CollectTaxes(Player player)
     {
-        foreach(Node node in player.GetNodesOwned())
-        {
-            node.PayTaxes();
-        }
+        player.CollectTaxes();
     }
 
     public void SetNextTurnGold(int amount)
@@ -74,12 +71,7 @@ public class Economy : MonoBehaviour
 
     public int GetProjectedTaxes(Player player)
     {
-        int tax = 0;
-        foreach(Node node in player.GetNodesOwned())
-        {
-            tax += node.GoldPerTurn();
-        }
-        return tax;
+        return player.GetProjectedTaxes();
     }
 
     public int GetProjectedExpenses(Player player)

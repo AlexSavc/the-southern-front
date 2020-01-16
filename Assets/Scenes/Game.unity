@@ -9040,7 +9040,7 @@ MonoBehaviour:
   currentPlayer: {fileID: 0}
   nextTurnGold: {fileID: 973543681}
   currentGoldDisplay: {fileID: 3619990564998511801}
-  percentSlider: {fileID: 0}
+  percentSlider: {fileID: 1995867272}
 --- !u!4 &1092017953
 Transform:
   m_ObjectHideFlags: 0
