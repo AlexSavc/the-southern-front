@@ -17,10 +17,14 @@ public class Builder : MonoBehaviour
 
     Structure tryBuild;
 
+    void Awake()
+    {
+        node = GetComponent<Node>();
+        manager = StructureManager.Instance;
+    }
+
     void Start()
     {
-        manager = StructureManager.Instance;
-        node = GetComponent<Node>();
     }
 
     public void OnTryBuild(object obj)
@@ -75,7 +79,7 @@ public class Builder : MonoBehaviour
         Economy.Instance.OnBuy(new BuyableInfo(tryBuild.buyableInfo.buyInfo), out bought);
         if (bought)
         {
-            manager.BuildStructure(tryBuild, node);
+            Build(tryBuild);
         }
     }
 
@@ -113,5 +117,24 @@ public class Builder : MonoBehaviour
         };
 
         return data;
+    }
+
+    public void Build(Structure structure)
+    {
+        manager.BuildStructure(structure, node);
+    }
+
+    public void BuildByName(string structureName)
+    {
+        foreach(Structure structure in buildable)
+        {
+            if(structureName == structure.StructureName)
+            {
+                //In the beginning, the players are not set, so to avoid nullreferenceExceptions,
+                // we don't make Economy Refresh by avoiding Player.AddBuyable
+                manager.BuildInitial(structure, node);
+                return;
+            }
+        }
     }
 }

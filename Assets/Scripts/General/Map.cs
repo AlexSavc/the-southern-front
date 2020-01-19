@@ -6,6 +6,9 @@ using TMPro;
 
 public class Map : MonoBehaviour
 {
+    private static Map _instance;
+    public static Map Instance { get { return _instance; } }
+
     public Color uncoccupiedColor;
     public int sizeX;
     public int sizeY;
@@ -41,6 +44,8 @@ public class Map : MonoBehaviour
     public event NodesAddedToOwner OnNodesAddedToOwner;
 
     public float playerLayoutSpeed = 0.1f;
+
+    public void Awake() { _instance = this; }
 
     public void Start()
     {
@@ -83,8 +88,6 @@ public class Map : MonoBehaviour
                 GameObject nodeObj = Instantiate(nodeTemplate, nodeParent.transform);
 
                 nodeObj.name = "node-" + x + "_" + y;
-                
-                //nodeObj.transform.localPosition = new Vector3(x, y, zPos);
 
                 Node node = nodeObj.GetComponent<Node>();
                 
@@ -92,13 +95,8 @@ public class Map : MonoBehaviour
                 nodes[x, y] = node;
                 node.X = x;
                 node.Y = y;
-
-                //EXPERIMENTAL>
-
-                //float brownian = Utility.BrownianMotion(x, y, info.brownianMotionData);
-
-                //<EXPERIMENTAL
                 node.roads = new Vector4(0, 0, 0, 0);
+                OnGenerateMap += node.SetRoads;
 
                 float factor = 0.2f;
                 Vector3 neuPos;

@@ -64,15 +64,14 @@ public class TurnManager : MonoBehaviour
 
     public void FirstTurn()
     {
+        Debug.Log("First Turn: " + currentPlayer);
         onFirstTurn?.Invoke(currentPlayer);
         CenterCameraOnPlayer();
-        map.SaveMap();
         ShowNextPlayerScreen();
     }
 
     public void FirstTurnOnLoad(Player player)
     {
-        map.SaveMap();
         currentPlayer = player;
         ShowNextPlayerScreen();
     }
@@ -98,6 +97,7 @@ public class TurnManager : MonoBehaviour
 
     public void BeginTurn()
     {
+        //This gets called by the button in NextPlayerWindow UI
         turn++;
         CenterCameraOnPlayer();
         nodeMenu.CloseNextPlayerWindw();
@@ -156,5 +156,18 @@ public class TurnManager : MonoBehaviour
             Camera.main.transform.position = new Vector3(1, 1, -10);
             return;
         }
+    }
+
+    public Player GetPlayerByName(string playerName)
+    {
+        foreach (Player player in players)
+        {
+            if (player.playerName == playerName)
+            {
+                return player;
+            }
+        }
+
+        return null;
     }
 }

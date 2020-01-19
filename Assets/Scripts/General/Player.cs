@@ -31,13 +31,12 @@ public class Player : MonoBehaviour
     public GameObject UnitPrefab;
     [Header("Economy")]
     [SerializeField]
-    private float percentOfPoint = 0;
-    public float PercentOfPoint { get { return percentOfPoint; } }
-    [SerializeField]
-    private int fullPercentsPoints;
+    private List<BuyableInfo> assets;
+
 
     public delegate void AddedCommanderDelegate(Commander added);
     public event AddedCommanderDelegate onCommanderAdded;
+
 
     public void Awake()
     {
@@ -46,6 +45,7 @@ public class Player : MonoBehaviour
         commanders = new List<Commander>();
         commanderParent = new GameObject("Commander Parent");
         commanderParent.transform.parent = transform;
+        assets = new List<BuyableInfo>();
     }
 
     void Start()
@@ -82,42 +82,35 @@ public class Player : MonoBehaviour
         gold += amount;
     }
 
-    public void AddGold(float amount)
+    public float GetProjectedTaxes()
     {
-        int add = Utility.RoundDownInt(amount);
-        gold += add;
-        AddPercent(Utility.GetDecimalPart(amount));
+        return CountRawTaxes();
     }
 
-    public void CollectTaxes()
+    public float GetProjectedExpenses()
     {
-
-    }
-
-    public int GetProjectedTaxes()
-    {
-        float tax = CountRawTaxes();
-        return 0;
+        return CountRawExpenses();
     }
 
     private float CountRawTaxes()
     {
         float tax = 0;
-        foreach(Node node in ownedNodes)
+        foreach (BuyableInfo info in assets)
         {
-            tax += node.GetRevenue();
+            tax += info.revenue;
         }
-        return (int)tax;
+        return tax;
     }
 
-    private void AddPercent(float amount)
+    private float CountRawExpenses()
     {
-        percentOfPoint += amount;
-        if(percentOfPoint >= 1)
+        float spend = 0;
+        foreach (BuyableInfo info in assets)
         {
-            AddGold(Utility.RoundDownInt(percentOfPoint));
-            percentOfPoint = Utility.GetDecimalPart(percentOfPoint);
+            spend += info.maintenance;
         }
+
+        return spend;
     }
 
     public void RemoveGold(int amount)
@@ -184,6 +177,23 @@ public class Player : MonoBehaviour
                 node.OnTurnEnd();
             }
         }
+    }
+
+    public void AddBuyable(BuyableInfo info)
+    {
+        assets.Add(info);
+        Economy.Instance.Refresh();
+    }
+
+    public void RemoveBuyable(BuyableInfo info)
+    {
+        assets.Remove(info);
+        Economy.Instance.Refresh();
+    }
+
+    public void AddBuyableNoRefresh(BuyableInfo info)
+    {
+        assets.Add(info);
     }
 }
 

@@ -13,13 +13,16 @@ public class Economy : MonoBehaviour
 
     [SerializeField]
     private Player currentPlayer;
+    public Player CurrentPlayer { get { return currentPlayer; } }
 
     [SerializeField]
     private TextMeshProUGUI nextTurnGold;
     [SerializeField]
     private TextMeshProUGUI currentGoldDisplay;
     [SerializeField]
-    private UnityEngine.UI.Slider percentSlider;
+    private UnityEngine.UI.Slider posSlider;
+    [SerializeField]
+    private UnityEngine.UI.Slider negSlider;
 
     void Awake()
     {
@@ -39,14 +42,29 @@ public class Economy : MonoBehaviour
     public void OnTurnStart(Player player)
     {
         currentPlayer = player;
-        SetCurrentGold(player.CurrentGold()); // Add Animation
-        SetNextTurnGold(GetProjectedBudget(player));
-        SetPercentSlider(currentPlayer.PercentOfPoint);
+        Refresh();
+    }
+
+    public void Refresh()
+    {
+        SetCurrentGold(currentPlayer.CurrentGold()); // Add Animation
+        float budget = GetProjectedBudget(currentPlayer);
+        float dec = Utility.GetDecimalPart(budget);
+
+        SetNextTurnGold(Utility.RoundDownInt(budget));
+        SetPercentSlider(Utility.GetDecimalPart(budget));
     }
     
     public void CollectTaxes(Player player)
     {
-        player.CollectTaxes();
+        float budget = GetProjectedBudget(currentPlayer);
+        float dec = Utility.GetDecimalPart(budget);
+
+        
+        budget = (Utility.RoundDownInt(budget));
+
+        player.AddGold((int)budget);
+        Debug.Log("Collected " + budget + " geld");
     }
 
     public void SetNextTurnGold(int amount)
@@ -61,22 +79,23 @@ public class Economy : MonoBehaviour
 
     public void SetPercentSlider(float percent)
     {
-        percentSlider.value = percent;
+        if(percent < 0)
+        {
+            posSlider.gameObject.SetActive(false);
+            negSlider.gameObject.SetActive(true);
+            negSlider.value = (percent*-1);
+        }
+        else
+        {
+            negSlider.gameObject.SetActive(false);
+            posSlider.gameObject.SetActive(true);
+            posSlider.value = percent;
+        }
     }
 
-    public int GetProjectedBudget(Player player)
+    public float GetProjectedBudget(Player player)
     {
-        return GetProjectedTaxes(player) - GetProjectedExpenses(player);
-    }
-
-    public int GetProjectedTaxes(Player player)
-    {
-        return player.GetProjectedTaxes();
-    }
-
-    public int GetProjectedExpenses(Player player)
-    {
-        return 0;
+        return player.GetProjectedTaxes() - player.GetProjectedExpenses();
     }
     
     void CollectAllTaxes()
@@ -99,6 +118,7 @@ public class Economy : MonoBehaviour
         }
         success = true;
         RemoveGold(info.price);
+        StartCoroutine(RefreshDelay());
     }
 
     public void RemoveGold(int amount)
@@ -111,6 +131,13 @@ public class Economy : MonoBehaviour
     {
         currentPlayer.AddGold(amount);
         SetCurrentGold(currentPlayer.CurrentGold());
+    }
+
+    public IEnumerator RefreshDelay()
+    {
+        yield return new WaitForSeconds(0.1f);
+        Refresh();
+        yield return null;
     }
 }
 

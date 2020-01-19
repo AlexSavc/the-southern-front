@@ -33,4 +33,17 @@ public class StructureManager : MonoBehaviour
 
         OpenNodeMenu.Instance.GoBack();
     }
+
+    public void BuildInitial(Structure toBuild, Node node)
+    {
+        if (node.Structure != null)
+        {
+            node.Structure.Demolish();
+        }
+
+        GameObject obj = Instantiate(toBuild.gameObject, node.transform);
+        Structure newStructure = obj.GetComponent<Structure>();
+        node.SetStructure(newStructure);
+        newStructure.SetOwnerInitial(node);
+    }
 }

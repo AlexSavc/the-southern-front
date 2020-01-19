@@ -182,7 +182,7 @@ public static class Utility
 
         return objs;
     }
-
+    
     public static int RoundUpInt(float toRound)
     {
         float nearest = Mathf.Round(toRound);
@@ -192,6 +192,9 @@ public static class Utility
         return r;
     }
 
+    /// <summary>
+    /// Rounds it closer to Zero. -1.5 returns -1.
+    /// </summary>
     public static int RoundDownInt(float toRound)
     {
         float remainder = GetDecimalPart(toRound);

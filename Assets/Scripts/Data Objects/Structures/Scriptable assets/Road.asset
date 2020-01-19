@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buyInfo:
     price: 1
-    maintenance: 1
+    maintenance: 1.2
     recupOnDisband: 1
     revenue: 0

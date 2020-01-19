@@ -23,6 +23,8 @@ public class Road : MonoBehaviour, ISelectable
 
     public Dictionary<string, QuestionPopupInfo> popups;
 
+    public Player owner;
+
     public Road()
     {
         
@@ -176,17 +178,26 @@ public class Road : MonoBehaviour, ISelectable
 
     void OnBuyRoad()
     {
-        Economy economy = FindObjectOfType<Economy>();
+        Economy economy = Economy.Instance;
         bool bought;
         economy.OnBuy(new BuyableInfo(buyableInfo.buyInfo), out bought);
         if(bought)
         {
+            Player player = economy.CurrentPlayer;
             parentNode.OnBoughtRoad(this);
+            owner = player;
+            player.AddBuyable(buyableInfo.buyInfo);
         }
     }
 
     public bool IsBuilt()
     {
         return parentNode.HasRoadTo(targetNode);
+    }
+
+    public void DemolishRoad()
+    {
+        parentNode.OnDestroyRoad(this);
+        parentNode.GetOwner().RemoveBuyable(buyableInfo.buyInfo);
     }
 }

@@ -42,7 +42,7 @@ public class Node : MonoBehaviour, ISelectable, IInteractable, IGarrison
     public GameObject roadPrefab;
     public GameObject roadParent;
     [SerializeField]
-    private Road[] allRoads;
+    public Road[] allRoads;
     public Road northRoad;
     public Road eastRoad;
     public Road southRoad;
@@ -67,8 +67,7 @@ public class Node : MonoBehaviour, ISelectable, IInteractable, IGarrison
     void Awake()
     {
         garrisonedCommanders = new List<Commander>();
-        map = FindObjectOfType<Map>();
-        map.OnGenerateMap += SetRoads;
+        map = Map.Instance;
     }
 
     void Start()
@@ -150,10 +149,44 @@ public class Node : MonoBehaviour, ISelectable, IInteractable, IGarrison
         X = data.x;
         Y = data.y;
         transform.localPosition = new Vector3(data.pos.x, data.pos.y, transform.position.z);
-        roads = data.roads;
         IsSmallNode = data.IsSmallNode;
+
+        if(IsSmallNode)
+        {
+            roads = data.roads;
+            for (int i = 0; i < 4; i++)
+            {
+                if(!string.IsNullOrEmpty(data.roadOwners[i]))
+                {
+                    Player player = TurnManager.Instance.GetPlayerByName(data.roadOwners[i]);
+                    player.AddBuyableNoRefresh(allRoads[i].buyableInfo.buyInfo);
+                }
+            }
+        }
+
+        //initialStructName = data.structure;
+        structure = new Structure(data.structure);
+
         if (data.owner.playerName != "")
         SetPlayersInitial(data.owner.playerName);
+    }
+
+    private void PostPlayerAddedInit()
+    {
+        AddStructure(structure.StructureName);
+    }
+
+    private void AddStructure(string structName)
+    {
+        if (!string.IsNullOrEmpty(structName))
+        {
+            Builder builder = GetComponent<Builder>();
+            if (builder != null)
+            {
+                structure = null; // To not interfere with SetStructure
+                builder.BuildByName(structName);
+            }
+        }
     }
 
     public void SetPlayersInitial(string playerName)
@@ -176,21 +209,8 @@ public class Node : MonoBehaviour, ISelectable, IInteractable, IGarrison
         SetOwner(player);
         AddSelfToOwner();
         GetComponent<DisplayGenerals>().SetUpListeners();
+        PostPlayerAddedInit();
         yield return null;
-    }
-
-    public void SetDescription()
-    {
-        if(owner == null)
-        {
-            nodeName = "Empty Node";
-        }
-    }
-
-    public void PayTaxes()
-    {
-        throw new System.Exception("Node.PayTaxes: This one does nothing");
-        //owner.AddGold(GetRevenue());
     }
 
     public float GetRevenue()
@@ -201,7 +221,17 @@ public class Node : MonoBehaviour, ISelectable, IInteractable, IGarrison
             if (structure.buyableInfo == null) throw new System.Exception(nodeName + ": structure.BuyableInfo is Null");
             revenue = structure.buyableInfo.buyInfo.revenue;
         }
-        
+        return revenue;
+    }
+
+    public float GetExpenses()
+    {
+        float revenue = 0;
+        if (structure != null)
+        {
+            if (structure.buyableInfo == null) throw new System.Exception(nodeName + ": structure.BuyableInfo is Null");
+            revenue = structure.buyableInfo.buyInfo.maintenance;
+        }
         return revenue;
     }
 
@@ -332,12 +362,6 @@ public class Node : MonoBehaviour, ISelectable, IInteractable, IGarrison
         if (HasRoadTo(node)) return;
         else road.DisplayBuildableRoad(node);
     }
-    
-    public void ShowBuildSuggestionTo(Node node)
-    {
-        if (!IsSmallNode) return;
-
-    }
 
     public Road GetDirection(Node node)
     {
@@ -424,6 +448,12 @@ public class Node : MonoBehaviour, ISelectable, IInteractable, IGarrison
         roads[RoadToIndex(bought)] = 1;
         ShowRoads();
     }
+
+    public void OnDestroyRoad(Road destoyed)
+    {
+        roads[RoadToIndex(destoyed)] = 0;
+        ShowRoads();
+    }
     
     public void OnOpenGarrison()
     {
@@ -468,7 +498,9 @@ public class NodeData
     public int y;
     public Vector2 pos;
     public Vector4 roads;
-
+    public string[] roadOwners;
+    public string structure;
+    
     public PlayerData owner;
 
     public void SetData(Node node)
@@ -476,10 +508,25 @@ public class NodeData
         x = node.X;
         y = node.Y;
 
-        pos = node.pos;
-        roads = node.roads;
-        IsSmallNode = node.GetIsSmallNode();
+        if (node.Structure != null)
+            structure = node.Structure.StructureName;
 
+        pos = node.pos;
+        IsSmallNode = node.GetIsSmallNode();
+        if(IsSmallNode)
+        {
+            roads = node.roads;
+            roadOwners = new string[4];
+
+            Road[] Roads = node.allRoads;
+            for (int i = 0; i < 4; i++)
+            {
+                //NORTH, EAST, SOUTH, WEST
+                if(Roads[i] != null && Roads[i].owner != null)
+                roadOwners[i] = Roads[i].owner.playerName;
+            }
+        }
+        
         PlayerData player = new PlayerData();
         if (node.GetOwner() != null) { player.SetData(node.GetOwner()); }
         

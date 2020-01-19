@@ -39,7 +39,7 @@ public class SceneChanger : MonoBehaviour
     IEnumerator Create(string path)
     {
         yield return new WaitForSeconds(0.1f);
-        map = FindObjectOfType<Map>();
+        map = Map.Instance;
         if (map != null)
             map.GenerateMap(path);
         else Debug.Log("Map null");
