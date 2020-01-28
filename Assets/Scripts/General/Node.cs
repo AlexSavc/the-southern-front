@@ -159,7 +159,10 @@ public class Node : MonoBehaviour, ISelectable, IInteractable, IGarrison
                 if(!string.IsNullOrEmpty(data.roadOwners[i]))
                 {
                     Player player = TurnManager.Instance.GetPlayerByName(data.roadOwners[i]);
-                    player.AddBuyableNoRefresh(allRoads[i].buyableInfo.buyInfo);
+                    Road tempRoad = allRoads[i];
+                    player.AddBuyableNoRefresh(tempRoad.buyableInfo.buyInfo);
+                    tempRoad.SetParent(this);
+                    tempRoad.SetOwner(player);
                 }
             }
         }

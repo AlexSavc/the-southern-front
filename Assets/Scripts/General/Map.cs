@@ -68,7 +68,10 @@ public class Map : MonoBehaviour
         sizeY = info.sizeY;
 
         nodes = new Node[sizeX, sizeY];
+
+        SetInitialMapInfo(info);
         players = GeneratePlayers(info.players);
+
         GenerateNodes(null);
         LayoutNewBases(info);
         StartCoroutine(OnNodesAddedDelay());
@@ -429,7 +432,15 @@ public class Map : MonoBehaviour
         return returnList;
     }
 
-    
+    private void SetInitialMapInfo(MapCreateInfo info)
+    {
+        int starterGold = Economy.Instance.StarterGold;
+
+        foreach(PlayerData data in info.players)
+        {
+            data.gold = starterGold;
+        }
+    }
 }
 
 [System.Serializable]

@@ -21,8 +21,6 @@ public class Road : MonoBehaviour, ISelectable
 
     public BuyableInfoSO buyableInfo;
 
-    public Dictionary<string, QuestionPopupInfo> popups;
-
     public Player owner;
 
     public Road()
@@ -54,8 +52,7 @@ public class Road : MonoBehaviour, ISelectable
     {
 
     }
-
-
+    
     void Start()
     {
 
@@ -64,6 +61,11 @@ public class Road : MonoBehaviour, ISelectable
     public void SetParent(Node node)
     {
         parentNode = node;
+    }
+
+    public void SetOwner(Player Owner)
+    {
+        owner = Owner;
     }
 
     public void SetTarget(Node targ)

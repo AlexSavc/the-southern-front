@@ -42,10 +42,6 @@ public class PopupHandler : MonoBehaviour
 
     public void DoAllPopups()
     {
-        foreach(object obj in popupQueue)
-        {
-            Debug.Log(obj);
-        }
         if (popupQueue.Count == 0) return;
         NextInQueue();
     }
@@ -58,7 +54,7 @@ public class PopupHandler : MonoBehaviour
 
     public void NextInQueue()
     {
-        if (popupQueue.Count == 0) { /*Debug.Log("returned");*/ return; }
+        if (popupQueue.Count == 0) { return; }
 
         object obj = popupQueue[0];
         if (obj.GetType() == typeof(QuestionPopupInfo))
@@ -68,18 +64,12 @@ public class PopupHandler : MonoBehaviour
         }
         else if (obj.GetType() == typeof(InfoPopupInfo))
         {
-            //Debug.Log("InfoPopup");
             OnInfoPupup((InfoPopupInfo)obj);
             popupQueue.Remove(obj);
         }
         else Debug.LogError("PopUpHandler.AddToQueue(object obj): tried adding an object which is not a referenced popupInfo");
 
     }
-
-    /*public void DefaultOnNo()
-    {
-        questionPopup.GetComponent<QuestionPopUp>().Close();
-    }*/
 }
 
 public class QuestionPopupInfo

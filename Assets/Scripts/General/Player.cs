@@ -15,8 +15,6 @@ public class Player : MonoBehaviour
     [SerializeField]
     private int gold;
     public int CurrentGold() { return gold; }
-    [SerializeField]
-    private int starterGold = 10;
 
     [Header("Nodes")]
     [SerializeField]
@@ -53,7 +51,7 @@ public class Player : MonoBehaviour
         TurnManager.Instance.onTurnStart += OnTurnStart;
         TurnManager.Instance.onTurnEnd += OnTurnEnd;
 
-        gold = starterGold;
+        //gold = starterGold;
         TempAddCommander();
     }
 

@@ -17,21 +17,6 @@ public class PauseMenu : MonoBehaviour
         map = FindObjectOfType<Map>();
     }
 
-    /*void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (GameIsPaused)
-            {
-                Resume();
-            }
-            else
-            {
-                Pause();
-            }
-        }
-    }*/
-
     public void Pause()
     {
         

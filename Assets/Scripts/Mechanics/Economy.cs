@@ -14,6 +14,10 @@ public class Economy : MonoBehaviour
     [SerializeField]
     private Player currentPlayer;
     public Player CurrentPlayer { get { return currentPlayer; } }
+    
+    [SerializeField]
+    private int starterGold = 10;
+    public int StarterGold { get { return starterGold; } }
 
     [SerializeField]
     private TextMeshProUGUI nextTurnGold;
@@ -64,7 +68,6 @@ public class Economy : MonoBehaviour
         budget = (Utility.RoundDownInt(budget));
 
         player.AddGold((int)budget);
-        Debug.Log("Collected " + budget + " geld");
     }
 
     public void SetNextTurnGold(int amount)

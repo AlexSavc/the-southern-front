@@ -50,8 +50,6 @@ public class TurnManager : MonoBehaviour
         onTurnStart += economy.OnTurnStart;
     }
 
-    /*HERE MAY BE DRAGONS*/
-    //OnNodesAddedToOwners triggers TurnManager.FirstTurn. Do NOT call it ANYWHERE except once in Map.
 
     public void NextTurn()
     {
@@ -64,7 +62,6 @@ public class TurnManager : MonoBehaviour
 
     public void FirstTurn()
     {
-        Debug.Log("First Turn: " + currentPlayer);
         onFirstTurn?.Invoke(currentPlayer);
         CenterCameraOnPlayer();
         ShowNextPlayerScreen();
@@ -81,6 +78,8 @@ public class TurnManager : MonoBehaviour
         GetPlayers();
     }
 
+    /*HERE MAY BE DRAGONS*/
+    //OnNodesAddedToOwners triggers TurnManager.FirstTurn. Do NOT call it ANYWHERE except once in Map.
     public void OnNodesAddedToOwners()
     {
         //This, I think, is called after OnPlayerGenerated is triggered by an event in Map.
@@ -91,6 +90,7 @@ public class TurnManager : MonoBehaviour
 
     public void ShowNextPlayerScreen()
     {
+        map.SaveMap();
         nodeMenu.OpenNextPlayerWindow();
         nextPlayerTurn.text = "It's " + currentPlayer.playerName + "'s turn";
     }
