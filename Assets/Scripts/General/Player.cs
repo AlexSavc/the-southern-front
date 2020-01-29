@@ -30,6 +30,8 @@ public class Player : MonoBehaviour
     [Header("Economy")]
     [SerializeField]
     private List<BuyableInfo> assets;
+    public List<BuyableInfo> Assets { get { return assets; } }
+    
 
 
     public delegate void AddedCommanderDelegate(Commander added);

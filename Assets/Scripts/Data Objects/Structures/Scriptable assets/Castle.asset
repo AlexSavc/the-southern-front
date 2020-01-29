@@ -17,3 +17,4 @@ MonoBehaviour:
     maintenance: 1
     recupOnDisband: 2
     revenue: 0
+    type: Castle

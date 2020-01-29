@@ -131,7 +131,7 @@ public class Builder : MonoBehaviour
             if(structureName == structure.StructureName)
             {
                 //In the beginning, the players are not set, so to avoid nullreferenceExceptions,
-                // we don't make Economy Refresh by avoiding Player.AddBuyable
+                // we don't make the Economy Refresh by avoiding Player.AddBuyable
                 manager.BuildInitial(structure, node);
                 return;
             }

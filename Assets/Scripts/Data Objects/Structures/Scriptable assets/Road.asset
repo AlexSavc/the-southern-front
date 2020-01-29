@@ -17,3 +17,4 @@ MonoBehaviour:
     maintenance: 1.2
     recupOnDisband: 1
     revenue: 0
+    type: Road

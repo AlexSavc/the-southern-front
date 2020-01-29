@@ -17,3 +17,4 @@ MonoBehaviour:
     maintenance: 0
     recupOnDisband: 1
     revenue: 2.5
+    type: Farm
