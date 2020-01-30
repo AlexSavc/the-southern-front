@@ -54,7 +54,7 @@ public class Player : MonoBehaviour
         TurnManager.Instance.onTurnEnd += OnTurnEnd;
 
         //gold = starterGold;
-        TempAddCommander();
+        //TempAddCommander();
     }
 
     void TempAddCommander()

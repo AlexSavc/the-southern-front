@@ -131,8 +131,7 @@ public class Map : MonoBehaviour
 
         float X = 0;
         float Y = y*yOffset;
-
-
+        
         //coords.z == 111 tells GenerateMap that it's a small node
         if (y % 2 == 0)
         {
