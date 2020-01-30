@@ -18,3 +18,4 @@ MonoBehaviour:
     recupOnDisband: 1
     revenue: 2.5
     type: Farm
+    thumbnail: {fileID: 21300000, guid: 641823b858b310b4cafce878e3fc6eeb, type: 3}

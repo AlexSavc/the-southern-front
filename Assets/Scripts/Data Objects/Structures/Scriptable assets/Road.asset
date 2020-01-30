@@ -18,3 +18,4 @@ MonoBehaviour:
     recupOnDisband: 1
     revenue: 0
     type: Road
+    thumbnail: {fileID: 21300000, guid: 7f860f9639196bd4ea2de8b95988629f, type: 3}

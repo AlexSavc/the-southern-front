@@ -18,3 +18,4 @@ MonoBehaviour:
     recupOnDisband: 2
     revenue: 0
     type: Castle
+    thumbnail: {fileID: 21300000, guid: a4b549703f43b254a96950ff63bb1639, type: 3}

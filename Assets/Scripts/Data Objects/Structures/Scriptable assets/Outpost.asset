@@ -18,3 +18,4 @@ MonoBehaviour:
     recupOnDisband: 1
     revenue: 0
     type: Outpost
+    thumbnail: {fileID: 21300000, guid: c1aa43f015e8a3940893785179410f6a, type: 3}

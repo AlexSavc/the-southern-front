@@ -7,13 +7,13 @@ using TMPro;
 public class UIElement : MonoBehaviour
 {
     [SerializeField]
-    public TextMeshProUGUI title;
+    private TextMeshProUGUI title;
 
     [SerializeField]
-    public TextMeshProUGUI paragraph;
+    private TextMeshProUGUI paragraph;
 
     [SerializeField]
-    public Image image;
+    private Image image;
 
     public void SetElemet(Sprite sprite, string Title, string Text)
     {

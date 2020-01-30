@@ -152,14 +152,16 @@ public class BuyableInfo
     public int recupOnDisband;
     public float revenue;
     public string type;
+    public Sprite thumbnail;
 
-    public BuyableInfo(int Price, float Maintenance, int RecupOnDisband, float Revenue, string Type)
+    public BuyableInfo(int Price, float Maintenance, int RecupOnDisband, float Revenue, string Type, Sprite Thumbnail)
     {
         price = Price;
         maintenance = Maintenance;
         recupOnDisband = RecupOnDisband;
         revenue = Revenue;
         type = Type;
+        thumbnail = Thumbnail;
     }
 
     public BuyableInfo(BuyableInfo template)
@@ -169,5 +171,6 @@ public class BuyableInfo
         recupOnDisband = template.recupOnDisband;
         revenue = template.revenue;
         type = template.type;
+        thumbnail = template.thumbnail;
     }
 }

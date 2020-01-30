@@ -121,18 +121,7 @@ public class Node : MonoBehaviour, ISelectable, IInteractable, IGarrison
         rend.color = color;
     }
 
-    public bool IsOccupied()
-    {
-        if (owner == null) return false;
-        else return true;
-    }
-
-    public void Occupy()
-    {
-
-    }
-
-    public void ClearOwner()
+    private void ClearOwner()
     {
         owner = null;
     }

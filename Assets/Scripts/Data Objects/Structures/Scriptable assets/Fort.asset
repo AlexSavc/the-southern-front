@@ -18,3 +18,4 @@ MonoBehaviour:
     recupOnDisband: 2
     revenue: 0
     type: Fort
+    thumbnail: {fileID: 21300000, guid: d44d008a63ec3e046884627d90b913cd, type: 3}

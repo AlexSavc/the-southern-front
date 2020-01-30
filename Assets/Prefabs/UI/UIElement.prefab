@@ -501,7 +501,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: {fileID: 6359851203382293090}
   paragraph: {fileID: 4579047968491276756}
-  image: {fileID: 3457957259787498024}
+  image: {fileID: 8703290917049619961}
 --- !u!1 &7611647715369231926
 GameObject:
   m_ObjectHideFlags: 0

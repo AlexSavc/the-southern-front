@@ -18,3 +18,4 @@ MonoBehaviour:
     recupOnDisband: 1
     revenue: 1.8
     type: Windmill
+    thumbnail: {fileID: 21300000, guid: 5656fd375f2d7864aa3fa8aaeebadeb9, type: 3}
